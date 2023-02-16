@@ -1,3 +1,6 @@
+use std::fs;
+use magic_crypt::MagicCryptTrait;
+
 struct Clipboard {
     selection: i32,
     content: String,
