@@ -8,6 +8,7 @@ use std::time::Duration;
 use base64::Engine;
 use base64::engine::general_purpose;
 use magic_crypt::MagicCryptTrait;
+mod manage_clipboard;
 
 
 fn main() {
