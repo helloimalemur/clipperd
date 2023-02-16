@@ -1,5 +1,6 @@
 use std::fs;
 use magic_crypt::MagicCryptTrait;
+use magic_crypt;
 
 struct Clipboard {
     selection: i32,
@@ -40,13 +41,13 @@ impl Clipping for Clipboard {
 
 
 fn set_clip_board(selection: i32, content: String) {
+    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
-    let data = match fs::read_to_string(path) {
+    let data = match fs::read_to_string(content) {
         Ok(x) => x,
         Err(_) => "ERR".to_string(),
     };
 
-    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
 
     let encrypted = mc.encrypt_str_to_base64(data);
@@ -57,7 +58,7 @@ fn set_clip_board(selection: i32, content: String) {
 }
 
 fn read_clip_board (selection: i32) {
-
+    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
 
 
