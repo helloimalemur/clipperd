@@ -1,15 +1,10 @@
 # clipperd
 
-- 5 clipboards
+- 10 clipboards
 - write modifier - acts like programmable "G" keys
 - clipboards saved encrypted in memory/in files encrypted
 
-# opt1
-1. select text
-2. save selection to clipboard: shortcut + write mod + NUM (control+win+shift+space+NUM)
-3. print selection from clipboard: shortcut + NUM (control+win+shift+NUM)
-
-
-# opt2
-1. keyboard macro record via start-hotkey and end-hotkey
-2. playback, controlled via playback-hotkey
+#
+    pulls from current clipboard
+    [alt]-[shift] + [ins] + [num], will write to "G" key 'num'
+    [alt]-[shift] + [num], will read from "G" key 'num'
