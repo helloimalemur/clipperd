@@ -15,5 +15,5 @@
 https://github.com/Enigo-rs/Enigo
 https://github.com/Narsil/rdev
 https://github.com/ItayGarin/ktrl
-https://github.com/obv-mikhail/InputBot
-https://docs.rs/daemonize/latest/daemonize/
+https://lib.rs/crates/os_info
+https://stackoverflow.com/questions/43292357/how-can-one-detect-the-os-type-using-rust

@@ -21,8 +21,8 @@ fn main() {
 
     let daemon = Daemonize::new()
         .pid_file("/tmp/clipperd.pid")
-        .user("nobody")
-        .group("daemon")
+        .user("foxx")
+        .group("foxx")
         .umask(0o777)
         .stdout(stdout)
         .stderr(stderr)
@@ -33,8 +33,9 @@ fn main() {
         Ok(_) => println!("{}", "Daemon running.."),
         Err(_) => eprintln!("{}", "Daemon could not be started")
     }
-
-
+    println!("{}", "in daemon ..");
+    thread::sleep(Duration::new(9,0));
+    println!("{}", "leaving daemon ..");
     // encryption algo
     // let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
