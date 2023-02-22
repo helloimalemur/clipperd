@@ -17,3 +17,7 @@ https://github.com/Narsil/rdev
 https://github.com/ItayGarin/ktrl
 https://lib.rs/crates/os_info
 https://stackoverflow.com/questions/43292357/how-can-one-detect-the-os-type-using-rust
+https://lib.rs/crates/arboard
+https://crates.io/crates/magic-crypt
+https://docs.rs/enigo/latest/enigo/
+https://github.com/enigo-rs/enigo
