@@ -16,3 +16,4 @@ https://github.com/Enigo-rs/Enigo
 https://github.com/Narsil/rdev
 https://github.com/ItayGarin/ktrl
 https://github.com/obv-mikhail/InputBot
+https://docs.rs/daemonize/latest/daemonize/
