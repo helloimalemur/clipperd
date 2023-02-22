@@ -4,16 +4,39 @@
 // https://github.com/enigo-rs/enigo
 use enigo::*;
 use std::{fs, thread};
+use std::fs::File;
 use std::time::Duration;
 use base64::Engine;
 use base64::engine::general_purpose;
 use magic_crypt::MagicCryptTrait;
+use daemonize;
+use daemonize::{Daemonize, DaemonizeError};
+
 mod manage_clipboard;
 
 
 fn main() {
+    let stdout = File::create("/var/log/clipperd.log").unwrap();
+    let stderr = File::create("/var/log/clipperd_error.log").unwrap();
+
+    let daemon = Daemonize::new()
+        .pid_file("/tmp/clipperd.pid")
+        .user("nobody")
+        .group("daemon")
+        .umask(0o777)
+        .stdout(stdout)
+        .stderr(stderr)
+        .exit_action(|| println!("{}", "Exiting"))
+        .privileged_action(|| println!("{}", "ran as priv"));
+
+    match daemon.start() {
+        Ok(_) => println!("{}", "Daemon running.."),
+        Err(_) => eprintln!("{}", "Daemon could not be started")
+    }
+
+
     // encryption algo
-    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
+    // let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
     // // read plain and encrypt
     // let path: &str = "/home/foxx/.sekret";
@@ -28,11 +51,11 @@ fn main() {
 
 
     // read encrypted
-    let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
-
-    let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
-    let decrypted = mc.decrypt_base64_to_string(df).unwrap();
-    println!("{}", decrypted);
+    // let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
+    //
+    // let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
+    // let decrypted = mc.decrypt_base64_to_string(df).unwrap();
+    // println!("{}", decrypted);
 
     // let mut enigo = Enigo::new();
     // thread::sleep(Duration::new(1,0));
