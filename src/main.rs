@@ -16,26 +16,12 @@ mod manage_clipboard;
 
 
 fn main() {
-    let stdout = File::create("/var/log/clipperd.log").unwrap();
-    let stderr = File::create("/var/log/clipperd_error.log").unwrap();
+    // determine OS (os_info)
+    // start daemon/service based on host OS (daemonize?)
+    // register hotkeys to grab from clipboard and save data encrypted (Enigo/magic_crypt)
+    // registery hotkeys to retreive data and type as keyboard (Enigo)
 
-    let daemon = Daemonize::new()
-        .pid_file("/tmp/clipperd.pid")
-        .user("foxx")
-        .group("foxx")
-        .umask(0o777)
-        .stdout(stdout)
-        .stderr(stderr)
-        .exit_action(|| println!("{}", "Exiting"))
-        .privileged_action(|| println!("{}", "ran as priv"));
-
-    match daemon.start() {
-        Ok(_) => println!("{}", "Daemon running.."),
-        Err(_) => eprintln!("{}", "Daemon could not be started")
-    }
-    println!("{}", "in daemon ..");
-    thread::sleep(Duration::new(9,0));
-    println!("{}", "leaving daemon ..");
+    // Example encryption and Enigo output to keyboard
     // encryption algo
     // let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
