@@ -13,6 +13,10 @@ mod manage_clipboard;
 
 fn main() {
     // determine OS (os_info)
+    let osinfo = os_info::get();
+    println!("{}", osinfo);
+
+
     // start daemon/service based on host OS (daemonize?)
     // register hotkeys to grab from clipboard and save data encrypted (Enigo/magic_crypt)
     // registery hotkeys to retreive data and type as keyboard (Enigo)
