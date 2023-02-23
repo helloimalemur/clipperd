@@ -1,0 +1,105 @@
+use std::fs::OpenOptions;
+use std::io::{self, Write};
+use std::path::Path;
+use std::process;
+use std::thread::sleep;
+use std::time::Duration;
+
+use daemonize::Daemonize;
+
+// Define the number of clipboards available
+const NUM_CLIPBOARDS: usize = 10;
+
+// Define a struct to hold the current clipboard state
+struct ClipboardState {
+    current: String,
+    clipboards: [String; NUM_CLIPBOARDS],
+}
+
+impl ClipboardState {
+    // Initialize a new clipboard state
+    fn new() -> ClipboardState {
+        ClipboardState {
+            current: String::new(),
+            clipboards: [" ".to_string(); NUM_CLIPBOARDS],
+        }
+    }
+
+    // Save the current clipboard to a numbered clipboard
+    fn save_to_clipboard(&mut self, index: usize) {
+        self.clipboards[index] = self.current.clone();
+    }
+
+    // Load the contents of a numbered clipboard into the current clipboard
+    fn load_from_clipboard(&mut self, index: usize) {
+        self.current = self.clipboards[index].clone();
+    }
+}
+
+fn main() {
+    // Initialize the clipboard state
+    let mut clipboard_state = ClipboardState::new();
+
+    // Create a daemonize object to configure the daemonization process
+    let daemonize = Daemonize::new()
+        .pid_file("/tmp/my_clipboard_daemon.pid")
+        .chown_pid_file(true)
+        .working_directory("/tmp")
+        .umask(0o777)
+        .privileged_action(|| "Executed before drop privileges");
+
+    // Daemonize the program
+    match daemonize.start() {
+        Ok(_) => {
+            println!("Daemonized successfully");
+        }
+        Err(e) => {
+            eprintln!("Error daemonizing: {}", e);
+            process::exit(1);
+        }
+    }
+
+    // Open the log file
+    let log_file_path = Path::new("/var/log/my_clipboard_daemon.log");
+    let mut log_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(log_file_path)
+        .unwrap();
+
+    // Main loop
+    loop {
+        // Read input from the user
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let input = input.trim();
+
+        // Handle the input
+        match input {
+            "write modifier" => {
+                // Handle the "write modifier" command
+                // (placeholder for actual implementation)
+                writeln!(log_file, "Modifier key pressed").unwrap();
+            }
+            "save" => {
+                // Handle the "save" command
+                writeln!(log_file, "Enter clipboard number (0-9): ").unwrap();
+                let mut index_input = String::new();
+                io::stdin().read_line(&mut index_input).unwrap();
+                let index_input = index_input.trim();
+
+                // Convert the input to a usize
+                let index = match index_input.parse::<usize>() {
+                    Ok(n) if n < NUM_CLIPBOARDS => n,
+                    _ => {
+                        writeln!(log_file, "Invalid clipboard number").unwrap();
+                        continue;
+                    }
+                };
+
+                // Save the current clipboard to the specified index
+                clipboard_state.save_to_clipboard(index);
+            }
+            "load" => {
+                // Handle the "load" command
+                writeln!(log_file,
