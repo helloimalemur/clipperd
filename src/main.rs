@@ -14,7 +14,16 @@ mod manage_clipboard;
 fn main() {
     // determine OS (os_info)
     let osinfo = os_info::get();
-    println!("{}", osinfo);
+    println!("Type: {}", osinfo.os_type());
+    println!("Version: {}", osinfo.version());
+    println!("Bitness: {}", osinfo.bitness());
+    if let ostype = osinfo.os_type().clone().to_string().contains("Linux") {
+        println!("{}", "OS is linux");
+        println!("{:?}", ostype);
+    } else if let ostype = false {
+        println!("{}", "OS is NOT linux .. assuming Windows");
+        println!("{:?}", ostype);
+    }
 
 
     // start daemon/service based on host OS (daemonize?)
