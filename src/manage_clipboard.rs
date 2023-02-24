@@ -48,6 +48,7 @@ trait Clipping {
 
 impl Clipping for Clippard {
     fn clip_board_one() {
+        // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
         thread::spawn(|| {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
             keybind.on_trigger(|| {
