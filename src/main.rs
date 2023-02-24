@@ -17,11 +17,12 @@ fn main() {
     println!("Type: {}", osinfo.os_type());
     println!("Version: {}", osinfo.version());
     println!("Bitness: {}", osinfo.bitness());
-    if let ostype = osinfo.os_type().clone().to_string().contains("Linux") {
-        println!("{}", "OS is linux");
+    let mut ostype = osinfo.os_type().clone().to_string().contains("indows");
+    if ostype {
+        println!("{}", "OS is Windows");
         println!("{:?}", ostype);
     } else if let ostype = false {
-        println!("{}", "OS is NOT linux .. assuming Windows");
+        println!("{}", "OS is NOT Windows .. assuming Linux");
         println!("{:?}", ostype);
     }
 
