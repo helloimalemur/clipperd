@@ -5,17 +5,20 @@ use magic_crypt;
 pub fn start_daemon(ostype: bool) {
     if ostype == false {
         // TODO: linux daemon
+        println!("{}", "start linux daemon");
         start();
     } else {
         // TODO: windows service
+        println!("{}", "start windows service");
         start();
     }
 }
 
 fn start () {
     loop {
-        println!("{}", "loop started")
+        println!("{}", "loop started");
         // listen for keystrokes
+        break
     }
 }
 
