@@ -1,5 +1,6 @@
 use daemonize;
 mod manage_clipboard;
+// mod clipboard;
 
 
 fn main() {
