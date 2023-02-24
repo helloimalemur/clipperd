@@ -1,6 +1,5 @@
 use std::{fs, process, thread};
 use std::time::Duration;
-use arboard::LinuxClipboardKind::Clipboard;
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use magic_crypt;
@@ -18,17 +17,18 @@ pub fn start_daemon(ostype: bool) {
 }
 
 fn start () {
+    listen_for_clipboards(); // start clipboard keybinding listeners
 
     loop {
         println!("{}", "loop started");
         // listen for keystrokes
         thread::sleep(Duration::new(3,0));
-        <Clipboard as Clipping>::clip_board_one(); // start clipboard keybinding listener
     }
 }
 
 
-struct Clipboard {
+
+struct Clippard {
     selection: i32,
     content: String,
     sekret: String,
@@ -44,7 +44,7 @@ trait Clipping {
 }
 
 
-impl Clipping for Clipboard {
+impl Clipping for Clippard {
     fn clip_board_one() {
         thread::spawn(|| {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
@@ -77,8 +77,10 @@ fn set_clip_board(_selection: i32, content: String) {
 }
 
 
-fn read_clip_board () {
-
-
-
+fn listen_for_clipboards() {
+    <Clippard as Clipping>::clip_board_one();
+    // <Clippard as Clipping>::clip_board_two();
+    // <Clippard as Clipping>::clip_board_three();
+    // <Clippard as Clipping>::clip_board_four();
+    // <Clippard as Clipping>::clip_board_five();
 }
