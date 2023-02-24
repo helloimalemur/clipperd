@@ -1,5 +1,6 @@
 use std::{fs, process, thread};
 use std::time::Duration;
+use arboard::Clipboard;
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use magic_crypt;
@@ -50,9 +51,14 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
             keybind.on_trigger(|| {
                 process::Command::new("firefox").spawn().unwrap();
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard text was: {}", clipboard.get_text().unwrap());
             });
             keybind.wait();
         });
+
+
     }
 
     fn clip_board_two() {
