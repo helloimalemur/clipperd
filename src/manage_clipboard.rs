@@ -1,5 +1,6 @@
 use std::{fs, process, thread};
 use std::time::Duration;
+use arboard::LinuxClipboardKind::Clipboard;
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use magic_crypt;
@@ -22,6 +23,7 @@ fn start () {
         println!("{}", "loop started");
         // listen for keystrokes
         thread::sleep(Duration::new(3,0));
+        <Clipboard as Clipping>::clip_board_one(); // start clipboard keybinding listener
     }
 }
 
