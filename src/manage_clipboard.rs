@@ -5,6 +5,7 @@ use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use magic_crypt;
 
+
 pub fn start_daemon(ostype: bool) {
     if ostype == false {
         // TODO: linux daemon
@@ -50,7 +51,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
             keybind.on_trigger(|| {
-                process::Command::new("firefox").spawn().unwrap();
+                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard text was: {}", clipboard.get_text().unwrap());
