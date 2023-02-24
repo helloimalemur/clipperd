@@ -22,7 +22,7 @@ fn start () {
     loop {
         println!("{}", "loop started");
         // listen for keystrokes
-        thread::sleep(Duration::new(3,0));
+        thread::sleep(Duration::new(15,0));
     }
 }
 
