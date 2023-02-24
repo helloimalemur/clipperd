@@ -1,13 +1,4 @@
-use enigo::*;
-use std::{fs, thread};
-use std::fs::File;
-use std::time::Duration;
-use base64::Engine;
-use base64::engine::general_purpose;
-use magic_crypt::MagicCryptTrait;
 use daemonize;
-use daemonize::{Daemonize, DaemonizeError};
-
 mod manage_clipboard;
 
 
@@ -17,7 +8,7 @@ fn main() {
     println!("Type: {}", osinfo.os_type());
     println!("Version: {}", osinfo.version());
     println!("Bitness: {}", osinfo.bitness());
-    let mut ostype = osinfo.os_type().clone().to_string().contains("indows");
+    let ostype = osinfo.os_type().clone().to_string().contains("indows");
     if ostype {
         println!("{}", "OS is Windows");
         println!("{:?}", ostype);

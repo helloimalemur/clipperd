@@ -40,7 +40,7 @@ impl Clipping for Clipboard {
 }
 
 
-fn set_clip_board(selection: i32, content: String) {
+fn set_clip_board(_selection: i32, content: String) {
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
 
     let data = match fs::read_to_string(content) {
@@ -57,7 +57,7 @@ fn set_clip_board(selection: i32, content: String) {
 
 }
 
-fn read_clip_board (selection: i32) {
+fn read_clip_board (_selection: i32) {
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
 
