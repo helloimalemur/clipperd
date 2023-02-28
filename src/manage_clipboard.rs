@@ -1,5 +1,5 @@
 use std::{fs, process, thread};
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use arboard::Clipboard;
 use keybind::{Keybind, Keycode};
@@ -56,6 +56,8 @@ trait Clipping {
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
     fn clip_board_one() {
+        let board1: Mutex<&str> = Mutex::from("");
+
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
         thread::spawn(|| {
             println!("{}", "Thread 1, key1, started");
@@ -70,6 +72,8 @@ impl Clipping for Clippard {
     }
 
     fn clip_board_two() {
+        let board2: Mutex<&str> = Mutex::from("");
+
         thread::spawn(|| {
             println!("{}", "Thread 2, key2, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
@@ -83,6 +87,7 @@ impl Clipping for Clippard {
     }
 
     fn clip_board_three() {
+        let board3: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
             println!("{}", "Thread 3, key3, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
@@ -96,6 +101,7 @@ impl Clipping for Clippard {
     }
 
     fn clip_board_four() {
+        let board4: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
             println!("{}", "Thread 4, key4, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
@@ -109,6 +115,7 @@ impl Clipping for Clippard {
     }
 
     fn clip_board_five() {
+        let board5: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
             println!("{}", "Thread 5, key5, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
@@ -123,7 +130,9 @@ impl Clipping for Clippard {
 }
 
 
-fn set_clip_board(_selection: i32, content: String) {
+fn set_clip_board(selection: i32, content: String) {
 // do some encryption and keep it in memory, dont write this to disk
+
+
 
 }
