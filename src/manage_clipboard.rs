@@ -61,7 +61,6 @@ impl Clipping for Clippard {
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
             keybind.on_trigger(|| {
-                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
@@ -75,7 +74,6 @@ impl Clipping for Clippard {
             println!("{}", "Thread 2, key2, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
             keybind.on_trigger(|| {
-                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
@@ -89,7 +87,6 @@ impl Clipping for Clippard {
             println!("{}", "Thread 3, key3, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
             keybind.on_trigger(|| {
-                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
@@ -103,7 +100,6 @@ impl Clipping for Clippard {
             println!("{}", "Thread 4, key4, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
             keybind.on_trigger(|| {
-                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
@@ -117,7 +113,6 @@ impl Clipping for Clippard {
             println!("{}", "Thread 5, key5, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
             keybind.on_trigger(|| {
-                println!("{}", "keyprss");
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
