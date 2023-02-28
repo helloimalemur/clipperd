@@ -35,24 +35,22 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    let mut instance = Clippard::new();
 
-    Clippard::clip_board_one_read(&mut instance.board1);
-    Clippard::clip_board_one_write(&mut instance.board1);
+    Clippard::clip_board_one_read();
+    Clippard::clip_board_one_write();
 
-    Clippard::clip_board_two_read(&mut instance.board2);
-    Clippard::clip_board_two_write(&mut instance.board2);
+    Clippard::clip_board_two_read();
+    Clippard::clip_board_two_write();
 
 
-    Clippard::clip_board_three_read(&mut instance.board3);
-    Clippard::clip_board_three_write(&mut instance.board3);
+    Clippard::clip_board_three_read();
+    Clippard::clip_board_three_write();
 
-    Clippard::clip_board_four_read(&mut instance.board4);
-    Clippard::clip_board_four_write(&mut instance.board4);
+    Clippard::clip_board_four_read();
+    Clippard::clip_board_four_write();
 
-    Clippard::clip_board_five_read(&mut instance.board5);
-    Clippard::clip_board_five_write(&mut instance.board5);
-
+    Clippard::clip_board_five_read();
+    Clippard::clip_board_five_write();
 
 }
 
@@ -245,7 +243,8 @@ fn access_clip_board(selection: i32, save: bool) {
     let mut dest: String = String::new();
     // selection indicates which board
     dest = format!("/tmp/board{}", selection);
-    println!("{}", dest);
+
+    // println!("{}", dest);
 
     // content is the string to save if writing
     // if save = true, write
@@ -253,7 +252,8 @@ fn access_clip_board(selection: i32, save: bool) {
         // content should be encrypted prior to writing
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
-        println!("{}", encrypted);
+
+        // println!("{}", encrypted);
 
         let mut openfile = OpenOptions::new()
             .write(true)
@@ -266,47 +266,16 @@ fn access_clip_board(selection: i32, save: bool) {
     } else {
         // if save = false, read
         // content should be output to keyboard if reading
-        // TODO: READ
         // read encrypted
         let file_read = fs::read(dest).unwrap();
         //
         let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
         let decrypted = mc.decrypt_base64_to_string(df).unwrap();
-        println!("{}", decrypted);
+
+        // println!("{}", decrypted);
 
         let mut enigo = Enigo::new();
         thread::sleep(Duration::new(1,0));
         enigo.key_sequence(decrypted.as_str());
     }
-
-
-
-    // Example encryption and Enigo output to keyboard
-    // encryption algo
-    // let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
-
-    // // read plain and encrypt
-    // let path: &str = "/home/foxx/.sekret";
-    // let data = match fs::read_to_string(path) {
-    //     Ok(x) => x,
-    //     Err(_) => "ERR".to_string(),
-    // };
-    // let encrypted = mc.encrypt_str_to_base64(data);
-    // // print encrypted and write to file
-    // println!("{}", encrypted);
-    // fs::write("/home/foxx/.sekret_enc", encrypted.as_bytes()).unwrap();
-
-
-    // read encrypted
-    // let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
-    //
-    // let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
-    // let decrypted = mc.decrypt_base64_to_string(df).unwrap();
-    // println!("{}", decrypted);
-
-    // let mut enigo = Enigo::new();
-    // thread::sleep(Duration::new(1,0));
-    // enigo.key_sequence(data.as_str());
-
-
 }
