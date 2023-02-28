@@ -4,6 +4,7 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use std::sync::mpsc;
 use arboard::Clipboard;
+use enigo::{Enigo, KeyboardControllable};
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use magic_crypt;
@@ -186,15 +187,15 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
         // content should be output to keyboard if reading
         // TODO: READ
         // read encrypted
-        // let file_read = fs::read("/home/foxx/.sekret_enc").unwrap();
+        let file_read = fs::read(dest).unwrap();
         //
-        // let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
-        // let decrypted = mc.decrypt_base64_to_string(df).unwrap();
-        // println!("{}", decrypted);
+        let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
+        let decrypted = mc.decrypt_base64_to_string(df).unwrap();
+        println!("{}", decrypted);
 
-        // let mut enigo = Enigo::new();
-        // thread::sleep(Duration::new(1,0));
-        // enigo.key_sequence(data.as_str());
+        let mut enigo = Enigo::new();
+        thread::sleep(Duration::new(1,0));
+        enigo.key_sequence(data.as_str());
     }
 
 
