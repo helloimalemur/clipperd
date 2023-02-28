@@ -40,7 +40,9 @@ fn listen_for_clipboards() {
 
 
 
-    Clippard::clip_board_one(&mut instance.board1);
+    Clippard::clip_board_one_read(&mut instance.board1);
+    Clippard::clip_board_one_write(&mut instance.board1);
+
     Clippard::clip_board_two(&mut instance.board2);
     Clippard::clip_board_three(&mut instance.board3);
     Clippard::clip_board_four(&mut instance.board4);
@@ -69,7 +71,8 @@ impl Clippard {
 }
 
 pub trait Clipping {
-    fn clip_board_one(board:&mut String) {}
+    fn clip_board_one_read(board:&mut String) {}
+    fn clip_board_one_write(board: &mut String) {}
     fn clip_board_two(board:&mut String) {}
     fn clip_board_three(board:&mut String) {}
     fn clip_board_four(board:&mut String) {}
@@ -79,11 +82,27 @@ pub trait Clipping {
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
 
-    fn clip_board_one(board: &mut String) {
+    fn clip_board_one_read(board: &mut String) {
         thread::spawn(|| {
 
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
+            keybind.on_trigger(|| {
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
+
+                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+            });
+            keybind.wait();
+        });
+    }
+
+    fn clip_board_one_write(board: &mut String) {
+        thread::spawn(|| {
+
+            println!("{}", "Thread 1, key1, started");
+            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
             keybind.on_trigger(|| {
 
                 let mut clipboard = Clipboard::new().unwrap();
