@@ -195,7 +195,7 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
 
         let mut enigo = Enigo::new();
         thread::sleep(Duration::new(1,0));
-        enigo.key_sequence(data.as_str());
+        enigo.key_sequence(decrypted.as_str());
     }
 
 
