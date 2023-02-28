@@ -1,5 +1,6 @@
 use std::{fs, process, thread};
 use std::borrow::Borrow;
+use std::fs::OpenOptions;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use std::sync::mpsc;
@@ -247,15 +248,10 @@ fn access_clip_board(selection: i32, save: bool) {
     // if save = true, write
     if save == true {
         // content should be encrypted prior to writing
-        // TODO: WRITE
-        // let path: &str = "/home/foxx/.sekret";
-        // let data = match fs::read_to_string(path) {
-        //     Ok(x) => x,
-        //     Err(_) => "ERR".to_string(),
-        // };
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
         println!("{}", encrypted);
+
         fs::write(dest, encrypted.as_bytes()).unwrap();
     } else {
         // if save = false, read
