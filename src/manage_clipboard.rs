@@ -106,13 +106,11 @@ impl Clipping for Clippard {
 
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
+
             keybind.on_trigger(|| {
-
-                // let mut clipboard = Clipboard::new().unwrap();
-                // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
-
                 access_clip_board(1, true);
             });
+
             keybind.wait();
         });
     }
@@ -123,13 +121,11 @@ impl Clipping for Clippard {
 
             println!("{}", "Thread 2, key2, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
+
             keybind.on_trigger(|| {
-
-                // let mut clipboard = Clipboard::new().unwrap();
-                // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
-
                 access_clip_board(2, false);
             });
+
             keybind.wait();
         });
     }
@@ -139,29 +135,26 @@ impl Clipping for Clippard {
 
             println!("{}", "Thread 2, key2, started");
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
+
             keybind.on_trigger(|| {
-
-                // let mut clipboard = Clipboard::new().unwrap();
-                // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
-
                 access_clip_board(2, true);
             });
+
             keybind.wait();
         });
     }
 
     //////// three
     fn clip_board_three_write(board:&mut String) {
-        let board3: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
+
             println!("{}", "Thread 3, key3, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
-            keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
+            keybind.on_trigger(|| {
                 access_clip_board(3, false);
             });
+
             keybind.wait();
         });
     }
@@ -169,78 +162,73 @@ impl Clipping for Clippard {
     fn clip_board_three_read(board:&mut String) {
         let board3: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
+
             println!("{}", "Thread 3, key3, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
-            keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
+            keybind.on_trigger(|| {
                 access_clip_board(3, true);
             });
+
             keybind.wait();
         });
     }
 
     //////// four
     fn clip_board_four_write(board:&mut String) {
-        let board4: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
+
             println!("{}", "Thread 4, key4, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
-            keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
+            keybind.on_trigger(|| {
                 access_clip_board(4, false);
             });
+
             keybind.wait();
         });
     }
 
     fn clip_board_four_read(board:&mut String) {
-        let board4: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
+
             println!("{}", "Thread 4, key4, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
-            keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
+            keybind.on_trigger(|| {
                 access_clip_board(4, true);
             });
+
             keybind.wait();
         });
     }
 
     //////// five
     fn clip_board_five_read(board:&mut String) {
-        // let mut board5: Arc<Mutex<String>> =Default::default();
         thread::spawn(|| {
+
             println!("{}", "Thread 5, key5, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
-            keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
+            keybind.on_trigger(|| {
                 access_clip_board(5, false);
 
             });
+
             keybind.wait();
         });
     }
 
     fn clip_board_five_write(board:&mut String) {
-        // let mut board5: Arc<Mutex<String>> =Default::default();
         thread::spawn(|| {
+
             println!("{}", "Thread 5, key5, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
+
             keybind.on_trigger(|| {
-
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
                 access_clip_board(5, true);
-
             });
+
             keybind.wait();
         });
     }
