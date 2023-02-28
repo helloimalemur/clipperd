@@ -77,16 +77,16 @@ impl Clippard {
 }
 
 pub trait Clipping {
-    fn clip_board_one_read(board:&mut String) {}
-    fn clip_board_one_write(board: &mut String) {}
-    fn clip_board_two_read(board:&mut String) {}
-    fn clip_board_two_write(board:&mut String);
-    fn clip_board_three_write(board:&mut String) {}
-    fn clip_board_three_read(board:&mut String);
-    fn clip_board_four_write(board:&mut String) {}
-    fn clip_board_four_read(board:&mut String);
-    fn clip_board_five_read(board:&mut String) {}
-    fn clip_board_five_write(board:&mut String);
+    fn clip_board_one_read();
+    fn clip_board_one_write();
+    fn clip_board_two_read();
+    fn clip_board_two_write();
+    fn clip_board_three_write();
+    fn clip_board_three_read();
+    fn clip_board_four_write();
+    fn clip_board_four_read();
+    fn clip_board_five_read();
+    fn clip_board_five_write();
 }
 
 impl Clipping for Clippard {
