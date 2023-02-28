@@ -2,6 +2,7 @@ use std::{fs, process, thread};
 use std::borrow::Borrow;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
+use std::sync::mpsc;
 use arboard::Clipboard;
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
@@ -31,11 +32,12 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    let mut instance = Clippard::new();
-
+    // let mut instance = Clippard::new();
     // test
     // instance.board1 = "beans".to_string();
     // println!("{}", instance.board1);
+
+
 
     Clippard::clip_board_one();
     Clippard::clip_board_two();
@@ -74,19 +76,21 @@ pub trait Clipping {
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
     fn clip_board_one() {
-
+        let (tx, rx) = mpsc::channel();
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
-        thread::spawn(|| {
+        thread::spawn(move || {
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
-            keybind.on_trigger(|| {
+            keybind.on_trigger(move || {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
                 access_clip_board(1,clipboard.get_text().unwrap(), true);
+                tx.send(clipboard.get_text()).unwrap();
             });
             keybind.wait();
         });
+        println!("{:?}", rx.recv().unwrap())
     }
 
     fn clip_board_two() {
