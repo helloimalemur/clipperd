@@ -165,6 +165,7 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
     let mut dest: String = String::new();
     // selection indicates which board
     dest = format!("/tmp/board{}", selection);
+    println!("{}", dest);
 
     // content is the string to save if writing
     // if save = true, write
@@ -195,7 +196,6 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
         // thread::sleep(Duration::new(1,0));
         // enigo.key_sequence(data.as_str());
     }
-    println!("{}", dest);
 
 
 
