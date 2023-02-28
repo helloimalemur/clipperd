@@ -46,9 +46,18 @@ fn listen_for_clipboards() {
     Clippard::clip_board_one_write(&mut instance.board1);
 
     Clippard::clip_board_two_read(&mut instance.board2);
+    Clippard::clip_board_two_write(&mut instance.board2);
+
+
+    Clippard::clip_board_three_read(&mut instance.board3);
     Clippard::clip_board_three_write(&mut instance.board3);
+
+    Clippard::clip_board_four_read(&mut instance.board4);
     Clippard::clip_board_four_write(&mut instance.board4);
+
     Clippard::clip_board_five_read(&mut instance.board5);
+    Clippard::clip_board_five_write(&mut instance.board5);
+
 
 }
 
