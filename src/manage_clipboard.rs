@@ -268,7 +268,6 @@ fn access_clip_board(selection: i32, save: bool) {
         // content should be output to keyboard if reading
         // read encrypted
         let file_read = fs::read(dest).unwrap();
-        //
         let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
         let decrypted = mc.decrypt_base64_to_string(df).unwrap();
 
