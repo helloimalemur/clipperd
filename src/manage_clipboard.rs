@@ -1,6 +1,7 @@
 use std::{fs, process, thread};
 use std::borrow::Borrow;
 use std::fs::OpenOptions;
+use std::io::Write;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use std::sync::mpsc;
@@ -252,7 +253,14 @@ fn access_clip_board(selection: i32, save: bool) {
         // // print encrypted and write to file
         println!("{}", encrypted);
 
-        fs::write(dest, encrypted.as_bytes()).unwrap();
+        let mut openfile = OpenOptions::new()
+            .write(true)
+            .append(false)
+            .open(dest)
+            .unwrap();
+        openfile.write(encrypted.as_bytes()).unwrap();
+        // fs::write(dest, encrypted.as_bytes()).unwrap();
+
     } else {
         // if save = false, read
         // content should be output to keyboard if reading
