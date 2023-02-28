@@ -32,18 +32,18 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    // let mut instance = Clippard::new();
+    let mut instance = Clippard::new();
     // test
     // instance.board1 = "beans".to_string();
     // println!("{}", instance.board1);
 
 
 
-    Clippard::clip_board_one();
-    Clippard::clip_board_two();
-    Clippard::clip_board_three();
-    Clippard::clip_board_four();
-    Clippard::clip_board_five();
+    Clippard::clip_board_one(&mut instance.board1);
+    Clippard::clip_board_two(&mut instance.board2);
+    Clippard::clip_board_three(&mut instance.board3);
+    Clippard::clip_board_four(&mut instance.board4);
+    Clippard::clip_board_five(&mut instance.board5);
 
 }
 
@@ -52,6 +52,7 @@ pub struct Clippard {
     board2: String,
     board3: String,
     board4: String,
+    board5: String,
 }
 
 impl Clippard {
@@ -61,39 +62,48 @@ impl Clippard {
             board2: "".to_string(),
             board3: "".to_string(),
             board4: "".to_string(),
+            board5: "".to_string(),
         }
     }
 }
 
 pub trait Clipping {
-    fn clip_board_one() {}
-    fn clip_board_two() {}
-    fn clip_board_three() {}
-    fn clip_board_four() {}
-    fn clip_board_five() {}
+    fn clip_board_one(board:&mut String) {}
+    fn clip_board_two(board:&mut String) {}
+    fn clip_board_three(board:&mut String) {}
+    fn clip_board_four(board:&mut String) {}
+    fn clip_board_five(board:&mut String) {}
 }
 
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
-    fn clip_board_one() {
-        let (tx, rx) = mpsc::channel();
+    fn clip_board_one(board: &mut String) {
+
+        // let (tx, rx) = mpsc::channel();
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
-        thread::spawn(move || {
+        thread::spawn(|| {
+
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
-            keybind.on_trigger(move || {
+            keybind.on_trigger(|| {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,clipboard.get_text().unwrap(), true);
-                tx.send(clipboard.get_text()).unwrap();
+                // access_clip_board(1,clipboard.get_text().unwrap(), true);
+                // tx.send(clipboard.get_text()).unwrap();
+
+
+
             });
             keybind.wait();
         });
-        println!("{:?}", rx.recv().unwrap())
+        // println!("{:?}", rx.recv().unwrap().unwrap());
+        // board = rx.recv().unwrap().unwrap();
+
+
     }
 
-    fn clip_board_two() {
+    fn clip_board_two(board:&mut String) {
         let board2: Mutex<&str> = Mutex::from("");
 
         thread::spawn(|| {
@@ -108,7 +118,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_three() {
+    fn clip_board_three(board:&mut String) {
         let board3: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
             println!("{}", "Thread 3, key3, started");
@@ -122,7 +132,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_four() {
+    fn clip_board_four(board:&mut String) {
         let board4: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
             println!("{}", "Thread 4, key4, started");
@@ -136,7 +146,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_five() {
+    fn clip_board_five(board:&mut String) {
         // let mut board5: Arc<Mutex<String>> =Default::default();
         thread::spawn(|| {
             println!("{}", "Thread 5, key5, started");
