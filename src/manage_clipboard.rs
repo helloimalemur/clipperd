@@ -159,7 +159,7 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
 
             keybind.on_trigger(|| {
-                access_clip_board(3, true);
+                access_clip_board(3, false);
             });
 
             keybind.wait();
@@ -173,7 +173,7 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
 
             keybind.on_trigger(|| {
-                access_clip_board(3, false);
+                access_clip_board(3, true);
             });
 
             keybind.wait();
@@ -188,7 +188,7 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
 
             keybind.on_trigger(|| {
-                access_clip_board(4, true);
+                access_clip_board(4, false);
             });
 
             keybind.wait();
@@ -202,7 +202,7 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
 
             keybind.on_trigger(|| {
-                access_clip_board(4, false);
+                access_clip_board(4, true);
             });
 
             keybind.wait();
