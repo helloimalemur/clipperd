@@ -161,6 +161,13 @@ impl Clipping for Clippard {
 
 
 fn access_clip_board(selection: i32, content: &String, save: bool) {
+    // if save = true, write
+    // if save = false, read
+    // selection indicates which board
+    // content is the string to save if writing
+    // content should be output to keyboard if reading
+    // content should be encrypted prior to writing
+
 
 // do some encryption and keep it in memory, dont write this to disk
     // Example encryption and Enigo output to keyboard
