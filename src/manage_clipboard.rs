@@ -177,10 +177,10 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
         //     Ok(x) => x,
         //     Err(_) => "ERR".to_string(),
         // };
-        // let encrypted = mc.encrypt_str_to_base64(data);
+        let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
-        // println!("{}", encrypted);
-        // fs::write("/home/foxx/.sekret_enc", encrypted.as_bytes()).unwrap();
+        println!("{}", encrypted);
+        fs::write(dest, encrypted.as_bytes()).unwrap();
     } else {
         // if save = false, read
         // content should be output to keyboard if reading
