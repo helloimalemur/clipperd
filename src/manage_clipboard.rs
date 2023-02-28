@@ -161,20 +161,25 @@ impl Clipping for Clippard {
 
 
 fn access_clip_board(selection: i32, content: &String, save: bool) {
-    // if save = true, write
-    // if save = false, read
-    // selection indicates which board
-    // content is the string to save if writing
-    // content should be output to keyboard if reading
-    // content should be encrypted prior to writing
+    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
+    // selection indicates which board
+    dest = format!("/tmp/board{}", selection);
+
+    // content is the string to save if writing
+    // if save = true, write
     if save == true {
-        dest = format!("/tmp/board{}", selection);
+        // content should be encrypted prior to writing
+        // TODO: WRITE
+    } else {
+        // if save = false, read
+        // content should be output to keyboard if reading
+        // TODO: READ
     }
     println!("{}", dest);
 
 
-// do some encryption and keep it in memory, dont write this to disk
+
     // Example encryption and Enigo output to keyboard
     // encryption algo
     // let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
