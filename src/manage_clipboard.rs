@@ -167,6 +167,11 @@ fn access_clip_board(selection: i32, content: &String, save: bool) {
     // content is the string to save if writing
     // content should be output to keyboard if reading
     // content should be encrypted prior to writing
+    let mut dest: String = String::new();
+    if save == true {
+        dest = format!("/tmp/board{}", selection);
+    }
+    println!("{}", dest);
 
 
 // do some encryption and keep it in memory, dont write this to disk
