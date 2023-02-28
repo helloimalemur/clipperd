@@ -31,7 +31,9 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    let instance = Clippard::new();
+    let mut instance = Clippard::new();
+    instance.sekret = "beans".to_string();
+    println!("{}", instance.sekret);
     Clippard::clip_board_one();
     Clippard::clip_board_two();
     Clippard::clip_board_three();
@@ -41,19 +43,19 @@ fn listen_for_clipboards() {
 }
 
 pub struct Clippard {
-    selection: i32,
-    content: String,
-    sekret: String,
-    base_dir: String,
+    board1: String,
+    board2: String,
+    board3: String,
+    board4: String,
 }
 
 impl Clippard {
     pub fn new() -> Clippard {
         Clippard {
-            selection: 0,
-            content: "".to_string(),
-            sekret: "".to_string(),
-            base_dir: "".to_string(),
+            board1: "".to_string(),
+            board2: "".to_string(),
+            board3: "".to_string(),
+            board4: "".to_string(),
         }
     }
 }
