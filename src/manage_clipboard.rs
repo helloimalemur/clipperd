@@ -121,32 +121,32 @@ impl Clipping for Clippard {
 
     //////// two
     fn clip_board_two_read(board:&mut String) {
-        let board2: Mutex<&str> = Mutex::from("");
-
         thread::spawn(|| {
+
             println!("{}", "Thread 2, key2, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
             keybind.on_trigger(|| {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+
+                access_clip_board(2,&clipboard.get_text().unwrap(), false);
             });
             keybind.wait();
         });
     }
 
     fn clip_board_two_write(board:&mut String) {
-        let board2: Mutex<&str> = Mutex::from("");
-
         thread::spawn(|| {
+
             println!("{}", "Thread 2, key2, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
+            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
             keybind.on_trigger(|| {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), true);
+
+                access_clip_board(2,&clipboard.get_text().unwrap(), true);
             });
             keybind.wait();
         });
@@ -162,7 +162,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+                access_clip_board(3,&clipboard.get_text().unwrap(), false);
             });
             keybind.wait();
         });
@@ -177,7 +177,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), true);
+                access_clip_board(3,&clipboard.get_text().unwrap(), true);
             });
             keybind.wait();
         });
@@ -193,7 +193,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+                access_clip_board(4,&clipboard.get_text().unwrap(), false);
             });
             keybind.wait();
         });
@@ -208,7 +208,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), true);
+                access_clip_board(4,&clipboard.get_text().unwrap(), true);
             });
             keybind.wait();
         });
@@ -224,7 +224,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+                access_clip_board(5,&clipboard.get_text().unwrap(), false);
 
             });
             keybind.wait();
@@ -240,7 +240,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(1,&clipboard.get_text().unwrap(), true);
+                access_clip_board(5,&clipboard.get_text().unwrap(), true);
 
             });
             keybind.wait();
