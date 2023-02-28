@@ -82,6 +82,7 @@ pub trait Clipping {
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
 
+    //////// one
     fn clip_board_one_read(board: &mut String) {
         thread::spawn(|| {
 
@@ -114,6 +115,7 @@ impl Clipping for Clippard {
         });
     }
 
+    //////// two
     fn clip_board_two(board:&mut String) {
         let board2: Mutex<&str> = Mutex::from("");
 
@@ -129,6 +131,7 @@ impl Clipping for Clippard {
         });
     }
 
+    //////// three
     fn clip_board_three(board:&mut String) {
         let board3: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
@@ -143,6 +146,7 @@ impl Clipping for Clippard {
         });
     }
 
+    //////// four
     fn clip_board_four(board:&mut String) {
         let board4: Mutex<&str> = Mutex::from("");
         thread::spawn(|| {
@@ -157,6 +161,7 @@ impl Clipping for Clippard {
         });
     }
 
+    //////// five
     fn clip_board_five(board:&mut String) {
         // let mut board5: Arc<Mutex<String>> =Default::default();
         thread::spawn(|| {
