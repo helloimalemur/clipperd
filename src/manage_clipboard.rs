@@ -97,7 +97,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
 
             println!("{}", "Thread 1, key1, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
 
             keybind.on_trigger(|| {
                 access_clip_board(1,false);
@@ -126,7 +126,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
 
             println!("{}", "Thread 2, key2, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F2]);
 
             keybind.on_trigger(|| {
                 access_clip_board(2,false);
@@ -155,7 +155,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
 
             println!("{}", "Thread 3, key3, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F3]);
 
             keybind.on_trigger(|| {
                 access_clip_board(3,false);
@@ -184,7 +184,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
 
             println!("{}", "Thread 4, key4, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F4]);
 
             keybind.on_trigger(|| {
                 access_clip_board(4,false);
@@ -213,7 +213,7 @@ impl Clipping for Clippard {
         thread::spawn(|| {
 
             println!("{}", "Thread 5, key5, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F5]);
 
             keybind.on_trigger(|| {
                 access_clip_board(5,false);
