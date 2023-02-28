@@ -115,6 +115,7 @@ impl Clipping for Clippard {
 }
 
 fn set_clip_board(_selection: i32, content: String) {
+// do some encryption and stuff
 
 }
 
