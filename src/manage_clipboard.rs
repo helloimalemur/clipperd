@@ -135,7 +135,7 @@ impl Clipping for Clippard {
 }
 
 
-fn set_clip_board(selection: i32, content: String) {
+fn set_clip_board(selection: i32, content: String, save: bool) {
 // do some encryption and keep it in memory, dont write this to disk
     // Example encryption and Enigo output to keyboard
     // encryption algo
