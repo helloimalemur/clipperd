@@ -92,13 +92,11 @@ impl Clipping for Clippard {
 
             println!("{}", "Thread 1, key1, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
+
             keybind.on_trigger(|| {
-
-                // let mut clipboard = Clipboard::new().unwrap();
-                // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
-
                 access_clip_board(1,false);
             });
+
             keybind.wait();
         });
     }
