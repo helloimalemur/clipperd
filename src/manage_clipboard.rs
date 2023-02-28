@@ -97,7 +97,7 @@ impl Clipping for Clippard {
                 // let mut clipboard = Clipboard::new().unwrap();
                 // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
 
-                access_clip_board(1,&clipboard.get_text().unwrap(), false);
+                access_clip_board(1,false);
             });
             keybind.wait();
         });
@@ -113,7 +113,7 @@ impl Clipping for Clippard {
                 // let mut clipboard = Clipboard::new().unwrap();
                 // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
 
-                access_clip_board(1,&clipboard.get_text().unwrap(), true);
+                access_clip_board(1, true);
             });
             keybind.wait();
         });
@@ -130,7 +130,7 @@ impl Clipping for Clippard {
                 // let mut clipboard = Clipboard::new().unwrap();
                 // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
 
-                access_clip_board(2,&clipboard.get_text().unwrap(), false);
+                access_clip_board(2, false);
             });
             keybind.wait();
         });
@@ -146,7 +146,7 @@ impl Clipping for Clippard {
                 // let mut clipboard = Clipboard::new().unwrap();
                 // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
 
-                access_clip_board(2,&clipboard.get_text().unwrap(), true);
+                access_clip_board(2, true);
             });
             keybind.wait();
         });
@@ -162,7 +162,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(3,&clipboard.get_text().unwrap(), false);
+                access_clip_board(3, false);
             });
             keybind.wait();
         });
@@ -177,7 +177,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 3 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(3,&clipboard.get_text().unwrap(), true);
+                access_clip_board(3, true);
             });
             keybind.wait();
         });
@@ -193,7 +193,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(4,&clipboard.get_text().unwrap(), false);
+                access_clip_board(4, false);
             });
             keybind.wait();
         });
@@ -208,7 +208,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 4 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(4,&clipboard.get_text().unwrap(), true);
+                access_clip_board(4, true);
             });
             keybind.wait();
         });
@@ -224,7 +224,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(5,&clipboard.get_text().unwrap(), false);
+                access_clip_board(5, false);
 
             });
             keybind.wait();
@@ -240,7 +240,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
-                access_clip_board(5,&clipboard.get_text().unwrap(), true);
+                access_clip_board(5, true);
 
             });
             keybind.wait();
@@ -249,8 +249,8 @@ impl Clipping for Clippard {
 }
 
 
-fn access_clip_board(selection: i32, content: &String, save: bool) {
-    let mut content = Clipboard::new().unwrap();
+fn access_clip_board(selection: i32, save: bool) {
+    let mut content = Clipboard::new().unwrap().get_text().unwrap();
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
