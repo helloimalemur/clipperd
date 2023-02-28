@@ -53,7 +53,14 @@ pub struct Clippard {
 }
 
 impl Clippard {
-    fn new() -> Clippard {}
+    pub fn new() -> Clippard {
+        Clippard {
+            selection: 0,
+            content: "".to_string(),
+            sekret: "".to_string(),
+            base_dir: "".to_string(),
+        }
+    }
 }
 
 pub trait Clipping {
