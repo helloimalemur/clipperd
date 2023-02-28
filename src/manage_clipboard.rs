@@ -244,7 +244,7 @@ fn access_clip_board(selection: i32, save: bool) {
     // selection indicates which board
     dest = format!("/tmp/board{}", selection);
 
-    // println!("{}", dest);
+    println!("{}", dest);
 
     // content is the string to save if writing
     // if save = true, write
@@ -253,7 +253,7 @@ fn access_clip_board(selection: i32, save: bool) {
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
 
-        // println!("{}", encrypted);
+        println!("{}", encrypted);
 
         let mut openfile = OpenOptions::new()
             .write(true)
@@ -272,7 +272,7 @@ fn access_clip_board(selection: i32, save: bool) {
         let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
         let decrypted = mc.decrypt_base64_to_string(df).unwrap();
 
-        // println!("{}", decrypted);
+        println!("{}", decrypted);
 
         let mut enigo = Enigo::new();
         thread::sleep(Duration::new(1,0));
