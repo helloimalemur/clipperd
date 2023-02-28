@@ -32,8 +32,11 @@ fn start () {
 
 fn listen_for_clipboards() {
     let mut instance = Clippard::new();
-    instance.sekret = "beans".to_string();
-    println!("{}", instance.sekret);
+
+    // test
+    // instance.board1 = "beans".to_string();
+    // println!("{}", instance.board1);
+
     Clippard::clip_board_one();
     Clippard::clip_board_two();
     Clippard::clip_board_three();
