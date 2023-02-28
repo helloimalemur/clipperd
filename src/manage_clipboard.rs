@@ -93,7 +93,7 @@ impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
 
     //////// one
-    fn clip_board_one_read(board: &mut String) {
+    fn clip_board_one_read() {
         thread::spawn(|| {
 
             println!("{}", "Thread 1, key1, started");
@@ -107,7 +107,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_one_write(board: &mut String) {
+    fn clip_board_one_write() {
         thread::spawn(|| {
 
             println!("{}", "Thread 1, key1, started");
@@ -122,7 +122,7 @@ impl Clipping for Clippard {
     }
 
     //////// two
-    fn clip_board_two_read(board: &mut String) {
+    fn clip_board_two_read() {
         thread::spawn(|| {
 
             println!("{}", "Thread 2, key2, started");
@@ -136,7 +136,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_two_write(board: &mut String) {
+    fn clip_board_two_write() {
         thread::spawn(|| {
 
             println!("{}", "Thread 2, key2, started");
@@ -151,7 +151,7 @@ impl Clipping for Clippard {
     }
 
     //////// three
-    fn clip_board_three_read(board: &mut String) {
+    fn clip_board_three_read() {
         thread::spawn(|| {
 
             println!("{}", "Thread 3, key3, started");
@@ -165,7 +165,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_three_write(board: &mut String) {
+    fn clip_board_three_write() {
         thread::spawn(|| {
 
             println!("{}", "Thread 3, key3, started");
@@ -180,7 +180,7 @@ impl Clipping for Clippard {
     }
 
     //////// four
-    fn clip_board_four_read(board: &mut String) {
+    fn clip_board_four_read() {
         thread::spawn(|| {
 
             println!("{}", "Thread 4, key4, started");
@@ -194,7 +194,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_four_write(board: &mut String) {
+    fn clip_board_four_write() {
         thread::spawn(|| {
 
             println!("{}", "Thread 4, key4, started");
@@ -209,7 +209,7 @@ impl Clipping for Clippard {
     }
 
     //////// five
-    fn clip_board_five_read(board: &mut String) {
+    fn clip_board_five_read() {
         thread::spawn(|| {
 
             println!("{}", "Thread 5, key5, started");
@@ -223,7 +223,7 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_five_write(board: &mut String) {
+    fn clip_board_five_write() {
         thread::spawn(|| {
 
             println!("{}", "Thread 5, key5, started");
