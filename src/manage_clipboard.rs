@@ -1,4 +1,5 @@
 use std::{fs, process, thread};
+use std::borrow::Borrow;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use arboard::Clipboard;
@@ -115,7 +116,7 @@ impl Clipping for Clippard {
     }
 
     fn clip_board_five() {
-        let board5: Mutex<&str> = Mutex::from("");
+        // let mut board5: Arc<Mutex<String>> =Default::default();
         thread::spawn(|| {
             println!("{}", "Thread 5, key5, started");
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
@@ -123,6 +124,10 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 5 text was: {}", clipboard.get_text().unwrap());
+                // let mut m = board5.lock().unwrap();
+                // *m = clipboard.get_text().unwrap();
+                // println!("{:?}", board5);
+
             });
             keybind.wait();
         });
