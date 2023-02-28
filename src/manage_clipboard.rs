@@ -79,7 +79,6 @@ impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
     fn clip_board_one(board: &mut String) {
 
-        // let (tx, rx) = mpsc::channel();
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
         thread::spawn(|| {
 
@@ -89,18 +88,13 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
-                // access_clip_board(1,clipboard.get_text().unwrap(), true);
-                // tx.send(clipboard.get_text()).unwrap();
 
+                access_clip_board(1,&clipboard.get_text().unwrap(), true);
 
 
             });
             keybind.wait();
         });
-        // println!("{:?}", rx.recv().unwrap().unwrap());
-        // board = rx.recv().unwrap().unwrap();
-
-
     }
 
     fn clip_board_two(board:&mut String) {
@@ -166,7 +160,7 @@ impl Clipping for Clippard {
 }
 
 
-fn access_clip_board(selection: i32, content: String, save: bool) {
+fn access_clip_board(selection: i32, content: &String, save: bool) {
 
 // do some encryption and keep it in memory, dont write this to disk
     // Example encryption and Enigo output to keyboard
