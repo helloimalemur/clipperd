@@ -94,8 +94,8 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
             keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
+                // let mut clipboard = Clipboard::new().unwrap();
+                // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
 
                 access_clip_board(1,&clipboard.get_text().unwrap(), false);
             });
@@ -110,8 +110,8 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
             keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
+                // let mut clipboard = Clipboard::new().unwrap();
+                // println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
 
                 access_clip_board(1,&clipboard.get_text().unwrap(), true);
             });
@@ -127,8 +127,8 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
             keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
+                // let mut clipboard = Clipboard::new().unwrap();
+                // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
 
                 access_clip_board(2,&clipboard.get_text().unwrap(), false);
             });
@@ -143,8 +143,8 @@ impl Clipping for Clippard {
             let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
             keybind.on_trigger(|| {
 
-                let mut clipboard = Clipboard::new().unwrap();
-                println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
+                // let mut clipboard = Clipboard::new().unwrap();
+                // println!("Clipboard 2 text was: {}", clipboard.get_text().unwrap());
 
                 access_clip_board(2,&clipboard.get_text().unwrap(), true);
             });
@@ -250,6 +250,7 @@ impl Clipping for Clippard {
 
 
 fn access_clip_board(selection: i32, content: &String, save: bool) {
+    let mut content = Clipboard::new().unwrap();
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
