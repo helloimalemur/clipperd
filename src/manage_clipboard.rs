@@ -31,18 +31,13 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    let instance = Clippard::new(&Clippard {
-        selection: 0,
-        content: "".to_string(),
-        sekret: "".to_string(),
-        base_dir: "".to_string(),
-    });
+    let instance = Clippard::new();
+    Clippard::clip_board_one();
+    Clippard::clip_board_two();
+    Clippard::clip_board_three();
+    Clippard::clip_board_four();
+    Clippard::clip_board_five();
 
-    // <Clippard as Clipping>::clip_board_one();
-    // <Clippard as Clipping>::clip_board_two();
-    // <Clippard as Clipping>::clip_board_three();
-    // <Clippard as Clipping>::clip_board_four();
-    // <Clippard as Clipping>::clip_board_five();
 }
 
 pub struct Clippard {
