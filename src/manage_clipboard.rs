@@ -28,7 +28,13 @@ fn start () {
     }
 }
 
-
+fn listen_for_clipboards() {
+    <Clippard as Clipping>::clip_board_one();
+    // <Clippard as Clipping>::clip_board_two();
+    // <Clippard as Clipping>::clip_board_three();
+    // <Clippard as Clipping>::clip_board_four();
+    // <Clippard as Clipping>::clip_board_five();
+}
 
 struct Clippard {
     selection: i32,
@@ -45,12 +51,12 @@ trait Clipping {
     fn clip_board_five() {}
 }
 
-
 impl Clipping for Clippard {
+    // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
     fn clip_board_one() {
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
         thread::spawn(|| {
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
+            let mut keybind = Keybind::new(&[Keycode::LAlt, Keycode::LShift, Keycode::Key1]);
             keybind.on_trigger(|| {
                 println!("{}", "keyprss");
 
@@ -114,16 +120,8 @@ impl Clipping for Clippard {
     }
 }
 
+
 fn set_clip_board(_selection: i32, content: String) {
-// do some encryption and stuff
+// do some encryption and keep it in memory, dont write this to disk
 
-}
-
-
-fn listen_for_clipboards() {
-    <Clippard as Clipping>::clip_board_one();
-    // <Clippard as Clipping>::clip_board_two();
-    // <Clippard as Clipping>::clip_board_three();
-    // <Clippard as Clipping>::clip_board_four();
-    // <Clippard as Clipping>::clip_board_five();
 }
