@@ -1,9 +1,6 @@
 use daemonize;
 use crate::manage_clipboard::start_daemon;
-
 mod manage_clipboard;
-
-
 
 fn main() {
     // determine OS (os_info)
