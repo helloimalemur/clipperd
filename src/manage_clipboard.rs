@@ -21,7 +21,6 @@ pub fn start_daemon(ostype: bool) {
 }
 
 fn start () {
-
     listen_for_clipboards(); // start clipboard keybinding listeners
 
     loop {
@@ -32,21 +31,32 @@ fn start () {
 }
 
 fn listen_for_clipboards() {
-    <Clippard as Clipping>::clip_board_one();
-    <Clippard as Clipping>::clip_board_two();
-    <Clippard as Clipping>::clip_board_three();
-    <Clippard as Clipping>::clip_board_four();
-    <Clippard as Clipping>::clip_board_five();
+    let instance = Clippard::new(&Clippard {
+        selection: 0,
+        content: "".to_string(),
+        sekret: "".to_string(),
+        base_dir: "".to_string(),
+    });
+
+    // <Clippard as Clipping>::clip_board_one();
+    // <Clippard as Clipping>::clip_board_two();
+    // <Clippard as Clipping>::clip_board_three();
+    // <Clippard as Clipping>::clip_board_four();
+    // <Clippard as Clipping>::clip_board_five();
 }
 
-struct Clippard {
+pub struct Clippard {
     selection: i32,
     content: String,
     sekret: String,
     base_dir: String,
 }
 
-trait Clipping {
+impl Clippard {
+    fn new() -> Clippard {}
+}
+
+pub trait Clipping {
     fn clip_board_one() {}
     fn clip_board_two() {}
     fn clip_board_three() {}
@@ -57,7 +67,6 @@ trait Clipping {
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
     fn clip_board_one() {
-        let board1: Mutex<&str> = Mutex::from("");
 
         // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
         thread::spawn(|| {
@@ -67,6 +76,7 @@ impl Clipping for Clippard {
 
                 let mut clipboard = Clipboard::new().unwrap();
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
+                access_clip_board(1,clipboard.get_text().unwrap(), true);
             });
             keybind.wait();
         });
@@ -135,7 +145,8 @@ impl Clipping for Clippard {
 }
 
 
-fn set_clip_board(selection: i32, content: String, save: bool) {
+fn access_clip_board(selection: i32, content: String, save: bool) {
+
 // do some encryption and keep it in memory, dont write this to disk
     // Example encryption and Enigo output to keyboard
     // encryption algo
