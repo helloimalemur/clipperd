@@ -151,6 +151,21 @@ impl Clipping for Clippard {
     }
 
     //////// three
+    fn clip_board_three_read(board:&mut String) {
+        let board3: Mutex<&str> = Mutex::from("");
+        thread::spawn(|| {
+
+            println!("{}", "Thread 3, key3, started");
+            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
+
+            keybind.on_trigger(|| {
+                access_clip_board(3, true);
+            });
+
+            keybind.wait();
+        });
+    }
+
     fn clip_board_three_write(board:&mut String) {
         thread::spawn(|| {
 
@@ -165,22 +180,21 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_three_read(board:&mut String) {
-        let board3: Mutex<&str> = Mutex::from("");
+    //////// four
+    fn clip_board_four_read(board:&mut String) {
         thread::spawn(|| {
 
-            println!("{}", "Thread 3, key3, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
+            println!("{}", "Thread 4, key4, started");
+            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
 
             keybind.on_trigger(|| {
-                access_clip_board(3, true);
+                access_clip_board(4, true);
             });
 
             keybind.wait();
         });
     }
 
-    //////// four
     fn clip_board_four_write(board:&mut String) {
         thread::spawn(|| {
 
@@ -195,26 +209,12 @@ impl Clipping for Clippard {
         });
     }
 
-    fn clip_board_four_read(board:&mut String) {
-        thread::spawn(|| {
-
-            println!("{}", "Thread 4, key4, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
-
-            keybind.on_trigger(|| {
-                access_clip_board(4, true);
-            });
-
-            keybind.wait();
-        });
-    }
-
     //////// five
     fn clip_board_five_read(board:&mut String) {
         thread::spawn(|| {
 
             println!("{}", "Thread 5, key5, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F5]);
+            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F5]);
 
             keybind.on_trigger(|| {
                 access_clip_board(5, false);
