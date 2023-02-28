@@ -59,24 +59,58 @@ impl Clipping for Clippard {
             });
             keybind.wait();
         });
-
-
     }
 
     fn clip_board_two() {
-        todo!()
+        thread::spawn(|| {
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::D]);
+            keybind.on_trigger(|| {
+                println!("{}", "keyprss");
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard text was: {}", clipboard.get_text().unwrap());
+            });
+            keybind.wait();
+        });
     }
 
     fn clip_board_three() {
-        todo!()
+        thread::spawn(|| {
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
+            keybind.on_trigger(|| {
+                println!("{}", "keyprss");
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard text was: {}", clipboard.get_text().unwrap());
+            });
+            keybind.wait();
+        });
     }
 
     fn clip_board_four() {
-        todo!()
+        thread::spawn(|| {
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
+            keybind.on_trigger(|| {
+                println!("{}", "keyprss");
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard text was: {}", clipboard.get_text().unwrap());
+            });
+            keybind.wait();
+        });
     }
 
     fn clip_board_five() {
-        todo!()
+        thread::spawn(|| {
+            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::G]);
+            keybind.on_trigger(|| {
+                println!("{}", "keyprss");
+
+                let mut clipboard = Clipboard::new().unwrap();
+                println!("Clipboard text was: {}", clipboard.get_text().unwrap());
+            });
+            keybind.wait();
+        });
     }
 }
 
