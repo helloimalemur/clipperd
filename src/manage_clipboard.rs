@@ -78,9 +78,8 @@ pub trait Clipping {
 
 impl Clipping for Clippard {
     // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
-    fn clip_board_one(board: &mut String) {
 
-        // arc/mutex clipboard1 variable? second thread for write/listen hotkey?
+    fn clip_board_one(board: &mut String) {
         thread::spawn(|| {
 
             println!("{}", "Thread 1, key1, started");
@@ -91,8 +90,6 @@ impl Clipping for Clippard {
                 println!("Clipboard 1 text was: {}", clipboard.get_text().unwrap());
 
                 access_clip_board(1,&clipboard.get_text().unwrap(), true);
-
-
             });
             keybind.wait();
         });
