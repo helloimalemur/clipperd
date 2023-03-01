@@ -2,6 +2,7 @@ use std::{fs, process, thread};
 use std::borrow::Borrow;
 use std::fs::OpenOptions;
 use std::io::Write;
+use std::path::Path;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use std::sync::mpsc;
@@ -270,7 +271,7 @@ fn access_clip_board(selection: i32, save: bool) {
         // if save = false, read
         // content should be output to keyboard if reading
         // read encrypted
-        let file_read = fs::read(dest).unwrap();
+        let file_read = fs::read(dest.clone()).unwrap();
         let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
         let decrypted = mc.decrypt_base64_to_string(df).unwrap();
 
@@ -279,5 +280,6 @@ fn access_clip_board(selection: i32, save: bool) {
         let mut enigo = Enigo::new();
         thread::sleep(Duration::new(1,0));
         enigo.key_sequence(decrypted.as_str());
+        fs::remove_file(Path::new(dest.as_str())).unwrap();
     }
 }
