@@ -251,7 +251,7 @@ fn access_clip_board(selection: i32, save: bool) {
     // content is the string to save if writing
     // if save = true, write
     if save == true {
-
+        fs::remove_file(Path::new(dest.clone().as_str())).unwrap_or_default();
         // content should be encrypted prior to writing
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
@@ -281,7 +281,6 @@ fn access_clip_board(selection: i32, save: bool) {
             let mut enigo = Enigo::new();
             thread::sleep(Duration::new(1,0));
             enigo.key_sequence(decrypted.as_str());
-            fs::remove_file(Path::new(dest.as_str())).unwrap();
         }
     }
 }
