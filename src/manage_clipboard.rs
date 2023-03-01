@@ -271,15 +271,17 @@ fn access_clip_board(selection: i32, save: bool) {
         // if save = false, read
         // content should be output to keyboard if reading
         // read encrypted
-        let file_read = fs::read(dest.clone()).unwrap();
-        let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
-        let decrypted = mc.decrypt_base64_to_string(df).unwrap();
+        let file_read = fs::read(dest.clone()).unwrap_or_default();
+        if file_read.len() > 0 {
+            let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap_or_default();
+            let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
 
-        println!("printing {}", selection);
+            println!("printing {}", selection);
 
-        let mut enigo = Enigo::new();
-        thread::sleep(Duration::new(1,0));
-        enigo.key_sequence(decrypted.as_str());
-        fs::remove_file(Path::new(dest.as_str())).unwrap();
+            let mut enigo = Enigo::new();
+            thread::sleep(Duration::new(1,0));
+            enigo.key_sequence(decrypted.as_str());
+            fs::remove_file(Path::new(dest.as_str())).unwrap();
+        }
     }
 }
