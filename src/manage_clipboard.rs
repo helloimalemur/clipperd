@@ -257,6 +257,7 @@ fn access_clip_board(selection: i32, save: bool) {
 
         let mut openfile = OpenOptions::new()
             .write(true)
+            .create(true)
             .append(false)
             .open(dest)
             .unwrap();
