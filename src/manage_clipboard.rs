@@ -238,7 +238,8 @@ impl Clipping for Clippard {
 
 
 fn access_clip_board(selection: i32, save: bool) {
-    let mut content = Clipboard::new().unwrap().get_text().unwrap();
+    let mut content = Clipboard::new().unwrap().get_text().expect("Could not retrieve clipboard");
+    // encryption key
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
@@ -249,11 +250,12 @@ fn access_clip_board(selection: i32, save: bool) {
     // content is the string to save if writing
     // if save = true, write
     if save == true {
+
         // content should be encrypted prior to writing
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
 
-        println!("{}", encrypted);
+        println!("Wrote {}", selection);
 
         let mut openfile = OpenOptions::new()
             .write(true)
@@ -261,7 +263,7 @@ fn access_clip_board(selection: i32, save: bool) {
             .append(false)
             .open(dest)
             .unwrap();
-        openfile.write(encrypted.as_bytes()).unwrap();
+        openfile.write(encrypted.as_bytes()).expect("Could not write file");
         // fs::write(dest, encrypted.as_bytes()).unwrap();
 
     } else {
@@ -272,7 +274,7 @@ fn access_clip_board(selection: i32, save: bool) {
         let df: &str = std::str::from_utf8(file_read.as_slice()).unwrap();
         let decrypted = mc.decrypt_base64_to_string(df).unwrap();
 
-        println!("{}", decrypted);
+        println!("printing {}", selection);
 
         let mut enigo = Enigo::new();
         thread::sleep(Duration::new(1,0));
