@@ -1,14 +1,13 @@
 # clipperd
 
-- 10 clipboards (0-9 keys)
 - write modifier - acts like programmable "G" keys
-- clipboards saved encrypted in memory/in files encrypted
-- pulls from current clipboard
+- clipboards saved encrypted
 - will not output when screen is locked
 
 #
-    [alt]-[shift] + [ins] + [num], will write to "G" key 'num'
-    [alt]-[shift] + [num], will read from "G" key 'num'
+    1. [Control] + [C], copy to normal clipboard
+    2. [shift] + [F1-F5], will copy value from clipboard to encrypted file (/tmp/board[1-5])
+    3. [control] + [F1-F5], will write value from encrypted file to keyboard output
 
 
 # Resources
