@@ -8,13 +8,6 @@ fn main() {
     println!("Version: {}", osinfo.version());
     println!("Bitness: {}", osinfo.bitness());
     let ostype = osinfo.os_type().clone().to_string().contains("indows");
-    // if ostype {
-    //     println!("{}", "OS is Windows");
-    //     println!("{:?}", ostype);
-    // } else if let ostype = false {
-    //     println!("{}", "OS is NOT Windows .. assuming Linux");
-    //     println!("{:?}", ostype);
-    // }
 
     // Linux
     if ostype == false {
