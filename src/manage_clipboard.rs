@@ -1,11 +1,8 @@
-use std::{fs, process, thread};
-use std::borrow::Borrow;
+use std::{fs, thread};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::Path;
-use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use std::sync::mpsc;
 use arboard::Clipboard;
 use enigo::{Enigo, KeyboardControllable};
 use keybind::{Keybind, Keycode};
@@ -13,16 +10,17 @@ use magic_crypt::MagicCryptTrait;
 use magic_crypt;
 
 
-pub fn start_daemon(ostype: bool) {
-    if ostype == false {
-        // TODO: linux daemon
-        println!("{}", "start linux daemon");
-        start();
-    } else {
-        // TODO: windows service
-        println!("{}", "start windows service");
-        start();
-    }
+pub fn start_daemon() {
+    start();
+    // if ostype == false {
+    //     // TODO: linux daemon
+    //     println!("{}", "start linux daemon");
+    //     start();
+    // } else {
+    //     // TODO: windows service
+    //     println!("{}", "start windows service");
+    //     start();
+    // }
 }
 
 fn start () {
@@ -37,213 +35,177 @@ fn start () {
 
 fn listen_for_clipboards() {
 
-    Clippard::clip_board_one_read();
-    Clippard::clip_board_one_write();
+    clip_board_one_read();
+    clip_board_one_write();
 
-    Clippard::clip_board_two_read();
-    Clippard::clip_board_two_write();
+    clip_board_two_read();
+    clip_board_two_write();
 
+    clip_board_three_read();
+    clip_board_three_write();
 
-    Clippard::clip_board_three_read();
-    Clippard::clip_board_three_write();
+    clip_board_four_read();
+    clip_board_four_write();
 
-    Clippard::clip_board_four_read();
-    Clippard::clip_board_four_write();
-
-    Clippard::clip_board_five_read();
-    Clippard::clip_board_five_write();
+    clip_board_five_read();
+    clip_board_five_write();
 
 }
 
-pub struct Clippard {
-    board1: String,
-    board2: String,
-    board3: String,
-    board4: String,
-    board5: String,
+
+//////// one
+fn clip_board_one_read() {
+    thread::spawn(|| {
+
+        println!("{}", "Thread 1, read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
+
+        keybind.on_trigger(|| {
+            access_clip_board(1,false);
+        });
+
+        keybind.wait();
+    });
 }
 
-impl Clippard {
-    pub fn new() -> Clippard {
-        Clippard {
-            board1: "".to_string(),
-            board2: "".to_string(),
-            board3: "".to_string(),
-            board4: "".to_string(),
-            board5: "".to_string(),
-        }
-    }
+fn clip_board_one_write() {
+    thread::spawn(|| {
+
+        println!("{}", "Thread 1, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
+
+        keybind.on_trigger(|| {
+            access_clip_board(1, true);
+        });
+
+        keybind.wait();
+    });
 }
 
-pub trait Clipping {
-    fn clip_board_one_read();
-    fn clip_board_one_write();
-    fn clip_board_two_read();
-    fn clip_board_two_write();
-    fn clip_board_three_write();
-    fn clip_board_three_read();
-    fn clip_board_four_write();
-    fn clip_board_four_read();
-    fn clip_board_five_read();
-    fn clip_board_five_write();
+//////// two
+fn clip_board_two_read() {
+    thread::spawn(|| {
+
+        println!("{}", "Thread 2, read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F2]);
+
+        keybind.on_trigger(|| {
+            access_clip_board(2,false);
+        });
+
+        keybind.wait();
+    });
 }
 
-impl Clipping for Clippard {
-    // seems stupid but keyBind is blocking and I can't get around using a thread PER fxx keybind..
+fn clip_board_two_write() {
+    thread::spawn(|| {
 
-    //////// one
-    fn clip_board_one_read() {
-        thread::spawn(|| {
+        println!("{}", "Thread 2, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
 
-            println!("{}", "Thread 1, read, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
-
-            keybind.on_trigger(|| {
-                access_clip_board(1,false);
-            });
-
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(2, true);
         });
-    }
 
-    fn clip_board_one_write() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 1, write, started");
-            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
+//////// three
+fn clip_board_three_read() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(1, true);
-            });
+        println!("{}", "Thread 3, read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F3]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(3,false);
         });
-    }
 
-    //////// two
-    fn clip_board_two_read() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 2, read, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F2]);
+fn clip_board_three_write() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(2,false);
-            });
+        println!("{}", "Thread 3, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(3, true);
         });
-    }
 
-    fn clip_board_two_write() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 2, write, started");
-            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
+//////// four
+fn clip_board_four_read() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(2, true);
-            });
+        println!("{}", "Thread 4, read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F4]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(4,false);
         });
-    }
 
-    //////// three
-    fn clip_board_three_read() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 3, read, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F3]);
+fn clip_board_four_write() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(3,false);
-            });
+        println!("{}", "Thread 4, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(4, true);
         });
-    }
 
-    fn clip_board_three_write() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 3, write, started");
-            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
+//////// five
+fn clip_board_five_read() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(3, true);
-            });
+        println!("{}", "Thread 5, read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F5]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(5,false);
         });
-    }
 
-    //////// four
-    fn clip_board_four_read() {
-        thread::spawn(|| {
+        keybind.wait();
+    });
+}
 
-            println!("{}", "Thread 4, read, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F4]);
+fn clip_board_five_write() {
+    thread::spawn(|| {
 
-            keybind.on_trigger(|| {
-                access_clip_board(4,false);
-            });
+        println!("{}", "Thread 5, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F5]);
 
-            keybind.wait();
+        keybind.on_trigger(|| {
+            access_clip_board(5, true);
         });
-    }
 
-    fn clip_board_four_write() {
-        thread::spawn(|| {
-
-            println!("{}", "Thread 4, write, started");
-            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
-
-            keybind.on_trigger(|| {
-                access_clip_board(4, true);
-            });
-
-            keybind.wait();
-        });
-    }
-
-    //////// five
-    fn clip_board_five_read() {
-        thread::spawn(|| {
-
-            println!("{}", "Thread 5, read, started");
-            let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F5]);
-
-            keybind.on_trigger(|| {
-                access_clip_board(5,false);
-            });
-
-            keybind.wait();
-        });
-    }
-
-    fn clip_board_five_write() {
-        thread::spawn(|| {
-
-            println!("{}", "Thread 5, write, started");
-            let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F5]);
-
-            keybind.on_trigger(|| {
-                access_clip_board(5, true);
-            });
-
-            keybind.wait();
-        });
-    }
+        keybind.wait();
+    });
 }
 
 
 fn access_clip_board(selection: i32, save: bool) {
-    let mut content = Clipboard::new().unwrap().get_text().expect("Could not retrieve clipboard");
+    let content = Clipboard::new().unwrap().get_text().expect("Could not retrieve clipboard");
     // encryption key
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
+    println!("{}", dest);
     dest = format!("/tmp/board{}", selection);
 
     println!("{}", dest);

@@ -1,4 +1,3 @@
-use daemonize;
 use crate::manage_clipboard::start_daemon;
 mod manage_clipboard;
 
@@ -9,21 +8,22 @@ fn main() {
     println!("Version: {}", osinfo.version());
     println!("Bitness: {}", osinfo.bitness());
     let ostype = osinfo.os_type().clone().to_string().contains("indows");
-    if ostype {
-        println!("{}", "OS is Windows");
-        println!("{:?}", ostype);
-    } else if let ostype = false {
-        println!("{}", "OS is NOT Windows .. assuming Linux");
-        println!("{:?}", ostype);
-    }
+    // if ostype {
+    //     println!("{}", "OS is Windows");
+    //     println!("{:?}", ostype);
+    // } else if let ostype = false {
+    //     println!("{}", "OS is NOT Windows .. assuming Linux");
+    //     println!("{:?}", ostype);
+    // }
 
     // Linux
     if ostype == false {
         // TODO:finish - linux
-        start_daemon(false);
+        // start_daemon(false);
+        start_daemon();
     } else {
         // TODO:finish - windows
-        start_daemon(true);
+        start_daemon();
     }
 
     // start daemon/service based on host OS (daemonize?)
