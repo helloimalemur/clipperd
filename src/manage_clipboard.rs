@@ -1,6 +1,6 @@
-use std::{fs, thread};
+use std::{fs, process, thread};
 use std::fs::OpenOptions;
-use std::io::Write;
+use std::io::{Read, Write};
 use std::path::Path;
 use std::time::{Duration, SystemTime};
 use arboard::Clipboard;
@@ -204,8 +204,7 @@ fn access_clip_board(selection: i32, save: bool) {
     let mut dest: String = String::new();
     // selection indicates which board
     println!("{}", dest);
-    dest = format!("/tmp/board{}", selection);
-
+    dest = format!("/var/lib/clippard/.board{}", selection);
     println!("{}", dest);
 
     // content is the string to save if writing
