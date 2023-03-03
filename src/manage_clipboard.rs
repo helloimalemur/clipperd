@@ -2,7 +2,7 @@ use std::{fs, thread};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::Path;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 use arboard::Clipboard;
 use enigo::{Enigo, KeyboardControllable};
 use keybind::{Keybind, Keycode};
@@ -25,9 +25,7 @@ pub fn start_daemon() {
 
 fn start () {
     listen_for_clipboards(); // start clipboard keybinding listeners
-
     loop {
-        println!("{}", "loop started");
         // listen for keystrokes
         thread::sleep(Duration::new(15,0));
     }
