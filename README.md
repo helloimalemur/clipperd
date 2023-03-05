@@ -5,6 +5,7 @@
 - will not output when screen is locked
 
 --Currently writes encrypted clipboard files to '/var/lib/clippard/.board{}'--
+
 --/var/lib/clippard/ must be created and permissions set for user clippard will be run as--
 #
     1. [Control] + [C], copy to normal clipboard
