@@ -16,167 +16,173 @@ pub fn start_daemon() {
     if ostype.contains("Linux") {
         // TODO: linux daemon
         println!("{}", "start linux daemon");
-        start();
+        start(true);
     } else {
         // TODO: windows service
         println!("{}", "start windows service");
-        start();
+        start(false);
     }
 }
 
-fn start () {
-    listen_for_clipboards(); // start clipboard keybinding listeners
+fn start (is_linux:bool) {
+    listen_for_clipboards(is_linux); // start clipboard keybinding listeners
     loop {
         // listen for keystrokes
         thread::sleep(Duration::new(15,0));
     }
 }
 
-fn listen_for_clipboards() {
+fn listen_for_clipboards(is_linux:bool) {
 
-    clip_board_one_read();
-    clip_board_one_write();
+    clip_board_one_read(is_linux);
+    clip_board_one_write(is_linux);
 
-    clip_board_two_read();
-    clip_board_two_write();
+    clip_board_two_read(is_linux);
+    clip_board_two_write(is_linux);
 
-    clip_board_three_read();
-    clip_board_three_write();
+    clip_board_three_read(is_linux);
+    clip_board_three_write(is_linux);
 
-    clip_board_four_read();
-    clip_board_four_write();
+    clip_board_four_read(is_linux);
+    clip_board_four_write(is_linux);
 
-    clip_board_five_read();
-    clip_board_five_write();
+    clip_board_five_read(is_linux);
+    clip_board_five_write(is_linux);
 
 }
 
 
 //////// one
-fn clip_board_one_read() {
+fn clip_board_one_read(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 1, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
         keybind.on_trigger(|| {
-            access_clip_board(1,false);
+            access_clip_board(1,false, is_linux);
         });
         keybind.wait();
     });
 }
 
-fn clip_board_one_write() {
+fn clip_board_one_write(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 1, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
         keybind.on_trigger(|| {
-            access_clip_board(1, true);
+            access_clip_board(1, true, is_linux);
         });
         keybind.wait();
     });
 }
 
 //////// two
-fn clip_board_two_read() {
+fn clip_board_two_read(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 2, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F2]);
         keybind.on_trigger(|| {
-            access_clip_board(2,false);
+            access_clip_board(2,false, is_linux);
         });
         keybind.wait();
     });
 }
 
-fn clip_board_two_write() {
+fn clip_board_two_write(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 2, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
         keybind.on_trigger(|| {
-            access_clip_board(2, true);
+            access_clip_board(2, true, is_linux);
         });
         keybind.wait();
     });
 }
 
 //////// three
-fn clip_board_three_read() {
+fn clip_board_three_read(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 3, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F3]);
         keybind.on_trigger(|| {
-            access_clip_board(3,false);
+            access_clip_board(3,false, is_linux);
         });
         keybind.wait();
     });
 }
 
-fn clip_board_three_write() {
+fn clip_board_three_write(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 3, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
         keybind.on_trigger(|| {
-            access_clip_board(3, true);
+            access_clip_board(3, true, is_linux);
         });
         keybind.wait();
     });
 }
 
 //////// four
-fn clip_board_four_read() {
+fn clip_board_four_read(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 4, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F4]);
         keybind.on_trigger(|| {
-            access_clip_board(4,false);
+            access_clip_board(4,false, is_linux);
         });
         keybind.wait();
     });
 }
 
-fn clip_board_four_write() {
+fn clip_board_four_write(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 4, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
         keybind.on_trigger(|| {
-            access_clip_board(4, true);
+            access_clip_board(4, true, is_linux);
         });
         keybind.wait();
     });
 }
 
 //////// five
-fn clip_board_five_read() {
+fn clip_board_five_read(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 5, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F5]);
         keybind.on_trigger(|| {
-            access_clip_board(5,false);
+            access_clip_board(5,false, is_linux);
         });
         keybind.wait();
     });
 }
 
-fn clip_board_five_write() {
+fn clip_board_five_write(is_linux:bool) {
     thread::spawn(|| {
         println!("{}", "Thread 5, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F5]);
         keybind.on_trigger(|| {
-            access_clip_board(5, true);
+            access_clip_board(5, true, is_linux);
         });
         keybind.wait();
     });
 }
 
 
-fn access_clip_board(selection: i32, save: bool) {
+fn access_clip_board(selection: i32, save: bool, is_linux:bool) {
     let content = Clipboard::new().unwrap().get_text().expect("Could not retrieve clipboard");
     // encryption key
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
     println!("{}", dest);
-    dest = format!("/var/lib/clippard/.board{}", selection);
-    println!("{}", dest);
+    if is_linux {
+        dest = format!("/var/lib/clippard/.board{}", selection);
+        println!("{}", dest);
+    } else {
+        //     TODO:debug win
+        dest = format!("C:/temp/.board{}", selection);
+        println!("{}", dest);
+    }
 
     // content is the string to save if writing
     // if save = true, write
