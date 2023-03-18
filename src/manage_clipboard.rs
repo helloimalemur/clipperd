@@ -185,17 +185,18 @@ fn access_clip_board(selection: i32, save: bool) {
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
 
-        println!("Wrote {}", selection);
+
 
         let mut openfile = OpenOptions::new()
             .write(true)
             .create(true)
             .append(false)
             .open(dest)
-            .unwrap();
+            .expect("Create /var/lib/clippard");
         openfile.write(encrypted.as_bytes()).expect("Could not write file");
         // fs::write(dest, encrypted.as_bytes()).unwrap();
-
+        openfile.sync_all().expect("cannot sync");
+        println!("Wrote {}", selection);
     } else {
         // if save = false, read
         // content should be output to keyboard if reading
@@ -210,6 +211,7 @@ fn access_clip_board(selection: i32, save: bool) {
             let mut enigo = Enigo::new();
             thread::sleep(Duration::new(1,0));
             enigo.key_sequence(decrypted.as_str());
-        }
+        };
+
     }
 }
