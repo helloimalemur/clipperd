@@ -28,6 +28,7 @@ fn start (is_linux:bool) {
     listen_for_clipboards(is_linux); // start clipboard keybinding listeners
     loop {
         // listen for keystrokes
+        //TODO: debug cpu usage LOL
         thread::sleep(Duration::new(15,0));
     }
 }
