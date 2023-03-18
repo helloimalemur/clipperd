@@ -4,6 +4,9 @@
 - clipboards saved encrypted
 - will not output when screen is locked
 
+--Currently writes encrypted clipboard files to '/var/lib/clippard/.board{}'--
+
+--/var/lib/clippard/ must be created and permissions set for user clippard will be run as--
 #
     1. [Control] + [C], copy to normal clipboard
     2. [shift] + [F1-F5], will copy value from clipboard to encrypted file (/tmp/board[1-5])
