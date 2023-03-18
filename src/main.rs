@@ -5,6 +5,7 @@ use std::fs::File;
 use daemonize::Daemonize;
 
 fn main() {
+    // TODO: debug daemon not writing out via onigo
     // let stdout = File::create("/var/lib/clippard/daemon.out").unwrap();
     // let stderr = File::create("/var/lib/clippard/daemon.err").unwrap();
     //
