@@ -5,13 +5,13 @@ use std::fs::File;
 use daemonize::Daemonize;
 
 fn main() {
-    // let stdout = File::create("/tmp/daemon.out").unwrap();
-    // let stderr = File::create("/tmp/daemon.err").unwrap();
+    // let stdout = File::create("/var/lib/clippard/daemon.out").unwrap();
+    // let stderr = File::create("/var/lib/clippard/daemon.err").unwrap();
     //
     // let daemonize = Daemonize::new()
-    //     .pid_file("/tmp/test.pid") // Every method except `new` and `start`
+    //     .pid_file("/var/lib/clippard/clippard.pid") // Every method except `new` and `start`
     //     .chown_pid_file(true)      // is optional, see `Daemonize` documentation
-    //     .working_directory("/tmp") // for default behaviour.
+    //     .working_directory("/var/lib/clippard/") // for default behaviour.
     //     .user("foxx")
     //     .group("foxx") // Group name
     //     .group(2)        // or group id.
