@@ -54,10 +54,10 @@ fn listen_for_clipboards(is_linux:bool) {
 
 //////// one
 fn clip_board_one_read(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 1, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(1,false, is_linux);
         });
         keybind.wait();
@@ -65,10 +65,10 @@ fn clip_board_one_read(is_linux:bool) {
 }
 
 fn clip_board_one_write(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 1, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(1, true, is_linux);
         });
         keybind.wait();
@@ -77,10 +77,10 @@ fn clip_board_one_write(is_linux:bool) {
 
 //////// two
 fn clip_board_two_read(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 2, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F2]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(2,false, is_linux);
         });
         keybind.wait();
@@ -88,10 +88,10 @@ fn clip_board_two_read(is_linux:bool) {
 }
 
 fn clip_board_two_write(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 2, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F2]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(2, true, is_linux);
         });
         keybind.wait();
@@ -100,10 +100,10 @@ fn clip_board_two_write(is_linux:bool) {
 
 //////// three
 fn clip_board_three_read(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 3, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F3]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(3,false, is_linux);
         });
         keybind.wait();
@@ -111,10 +111,10 @@ fn clip_board_three_read(is_linux:bool) {
 }
 
 fn clip_board_three_write(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 3, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F3]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(3, true, is_linux);
         });
         keybind.wait();
@@ -123,10 +123,10 @@ fn clip_board_three_write(is_linux:bool) {
 
 //////// four
 fn clip_board_four_read(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 4, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F4]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(4,false, is_linux);
         });
         keybind.wait();
@@ -134,10 +134,10 @@ fn clip_board_four_read(is_linux:bool) {
 }
 
 fn clip_board_four_write(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 4, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F4]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(4, true, is_linux);
         });
         keybind.wait();
@@ -146,10 +146,10 @@ fn clip_board_four_write(is_linux:bool) {
 
 //////// five
 fn clip_board_five_read(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 5, read, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F5]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(5,false, is_linux);
         });
         keybind.wait();
@@ -157,10 +157,10 @@ fn clip_board_five_read(is_linux:bool) {
 }
 
 fn clip_board_five_write(is_linux:bool) {
-    thread::spawn(|| {
+    thread::spawn(move || {
         println!("{}", "Thread 5, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F5]);
-        keybind.on_trigger(|| {
+        keybind.on_trigger(move || {
             access_clip_board(5, true, is_linux);
         });
         keybind.wait();
