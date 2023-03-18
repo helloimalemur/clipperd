@@ -24,20 +24,5 @@ fn main() {
     //     Err(e) => eprintln!("Error, {}", e),
     // }
 
-    // determine OS (os_info)
-    let osinfo = os_info::get();
-    println!("Type: {}", osinfo.os_type());
-    println!("Version: {}", osinfo.version());
-    println!("Bitness: {}", osinfo.bitness());
-    let ostype = osinfo.os_type().clone().to_string().contains("indows");
-
-    // Linux
-    if ostype == false {
-        // TODO:finish - linux
-        // start_daemon(false);
-        start_daemon();
-    } else {
-        // TODO:finish - windows
-        start_daemon();
-    }
+    start_daemon();
 }
