@@ -11,16 +11,17 @@ use magic_crypt;
 
 
 pub fn start_daemon() {
-    start();
-    // if ostype == false {
-    //     // TODO: linux daemon
-    //     println!("{}", "start linux daemon");
-    //     start();
-    // } else {
-    //     // TODO: windows service
-    //     println!("{}", "start windows service");
-    //     start();
-    // }
+    let ostype = os_info::get().os_type().to_string();
+    println!("{}", ostype);
+    if ostype.contains("Linux") {
+        // TODO: linux daemon
+        println!("{}", "start linux daemon");
+        start();
+    } else {
+        // TODO: windows service
+        println!("{}", "start windows service");
+        start();
+    }
 }
 
 fn start () {
