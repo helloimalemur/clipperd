@@ -3,8 +3,8 @@ Description=clippard
 After=network.target
 
 [Service]
-User=foxx
-Group=foxx
+User=root
+Group=root
 Type=simple
 Restart=always
 ExecStart=/bin/bash -c "/var/lib/clippard/clippard"
