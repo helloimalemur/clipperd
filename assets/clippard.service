@@ -9,5 +9,5 @@ Type=oneshot
 RemainAfterExit=yes
 #Type=forking
 #PIDFile=/var/lib/clippard/clippard.pid
-#Restart=always
+Restart=no
 ExecStart=/bin/bash -c "/var/lib/clippard/clippard"
