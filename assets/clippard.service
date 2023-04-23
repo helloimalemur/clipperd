@@ -5,9 +5,9 @@ After=default.target
 [Service]
 User=root
 Group=root
-Type=oneshot
-RemainAfterExit=yes
-#Type=forking
-#PIDFile=/var/lib/clippard/clippard.pid
+#Type=oneshot
+#RemainAfterExit=yes
+Type=forking
+PIDFile=/var/lib/clippard/clippard.pid
 Restart=no
 ExecStart=/bin/bash -c "/var/lib/clippard/clippard"
