@@ -1,0 +1,10 @@
+rm -rf /var/lib/clippard/;
+mkdir /var/lib/clippard/;
+cd /var/lib/clippard/;
+git clone https://github.com/helloimalemur/clipperd.git;
+cd clipperd/;
+cargo build;
+cp -r assets/ ../;
+cp -r target/debug/clippard ../;
+cd /var/lib/clippard/;
+rm -rf clipperd/;
