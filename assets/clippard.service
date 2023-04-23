@@ -11,3 +11,4 @@ Type=forking
 PIDFile=/var/lib/clippard/clippard.pid
 Restart=no
 ExecStart=/bin/bash -c "/var/lib/clippard/clippard"
+ExecStop=kill $(cat /var/lib/clippard/clippard.pid) && rm /var/lib/clippard/clippard.pid
