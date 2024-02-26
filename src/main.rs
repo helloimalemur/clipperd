@@ -6,15 +6,15 @@ use std::fs::File;
 use daemonize::Daemonize;
 
 fn main() {
-    let _ = fs::create_dir_all("~/.clipperd").unwrap();
+    let _ = fs::create_dir_all("/home/foxx/").unwrap();
     // TODO: debug daemon not writing out via onigo
-    let stdout = File::create("~/.clipperddaemon.out").unwrap();
-    let stderr = File::create("~/.clipperddaemon.err").unwrap();
+    let stdout = File::create("/home/foxx/daemon.out").unwrap();
+    let stderr = File::create("/home/foxx/daemon.err").unwrap();
 
     let daemonize = Daemonize::new()
-        .pid_file("~/.clipperdclippard.pid") // Every method except `new` and `start`
+        .pid_file("/home/foxx/clippard.pid") // Every method except `new` and `start`
         .chown_pid_file(true)      // is optional, see `Daemonize` documentation
-        .working_directory("~/.clipperd") // for default behaviour.
+        .working_directory("/home/foxx/") // for default behaviour.
         .user("root")
         .group("root") // Group name
         .group(2)        // or group id.

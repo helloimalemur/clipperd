@@ -13,14 +13,15 @@ use magic_crypt;
 pub fn start_daemon() {
     let ostype = os_info::get().os_type().to_string();
     println!("{}", ostype);
-    if ostype.contains("Linux") {
-        // TODO: linux daemon
-        println!("{}", "start linux daemon");
-        start(true);
-    } else {
+    if ostype.contains("Windows") {
         // TODO: windows service
         println!("{}", "start windows service");
         start(false);
+
+    } else {
+        // TODO: linux daemon
+        println!("{}", "start linux daemon");
+        start(true);
     }
 }
 
@@ -177,7 +178,7 @@ fn access_clip_board(selection: i32, save: bool, is_linux:bool) {
     // selection indicates which board
     println!("{}", dest);
     if is_linux {
-        dest = format!("/var/lib/clippard/.board{}", selection);
+        dest = format!("/home/foxx/.clipperd/.board{}", selection);
         println!("{}", dest);
     } else {
         //     TODO:debug win
@@ -200,7 +201,7 @@ fn access_clip_board(selection: i32, save: bool, is_linux:bool) {
             .create(true)
             .append(false)
             .open(dest)
-            .expect("Create /var/lib/clippard");
+            .expect("Create /home/foxx/.clipperd/");
         openfile.write(encrypted.as_bytes()).expect("Could not write file");
         // fs::write(dest, encrypted.as_bytes()).unwrap();
         openfile.sync_all().expect("cannot sync");
