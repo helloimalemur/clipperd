@@ -3,7 +3,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;use enigo::{Enigo, KeyboardControllable};
+use std::thread::JoinHandle;
+use std::time::Duration;
+use thread::spawn;
+use enigo::{Enigo, KeyboardControllable};
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use wl_clipboard_rs::paste::{get_contents, ClipboardType, MimeType, Seat};
@@ -14,21 +17,36 @@ pub fn clipperd() {
     let mut clipboard: Arc<Mutex<HashMap<u16, String>>> = Arc::new(Mutex::new(HashMap::new()));
 
 
+    let mut handles: Vec<JoinHandle<()>> = vec![];
 
 
-
-    let handle = thread::spawn(move || {
+    let cb1 = clipboard.clone();
+    handles.push(spawn(move || {
         println!("{}", "Thread 1, write, started");
         let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
         keybind.on_trigger(move || {
             println!("{}", "Thread 1, write, triggered");
 
-            push_to_clipboard(1, "true", clipboard.clone());
+            push_to_clipboard(1, "true", cb1.clone());
         });
         keybind.wait();
-    });
-    let _ = handle.join();
+    }));
 
+    let cb2 = clipboard.clone();
+    handles.push(spawn(move || {
+        println!("{}", "Thread 1, Read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
+        keybind.on_trigger(move || {
+            println!("{}", "Thread 1, Read, triggered");
+
+            get_from_clipboard(1, cb2.clone());
+        });
+        keybind.wait();
+    }));
+
+    for e in handles {
+        e.join().unwrap()
+    }
 
 }
 
@@ -65,10 +83,13 @@ fn push_to_clipboard(index: i32, string: &str, cb: Arc<Mutex<HashMap<u16, String
     println!("{:#?}", clipboard_map);
 }
 
-fn get_from_clipboard(index: i32) -> String {
-    // let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
-    // let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
-    // let mut enigo = Enigo::new();
-    // enigo.key_sequence(decrypted.as_str());
+fn get_from_clipboard(index: i32, arc: Arc<Mutex<HashMap<u16, String>>>) -> String {
+    let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
+    let cb = arc.lock().unwrap();
+    let encrypted = cb.get(&1u16).unwrap();
+    let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
+    let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
+    let mut enigo = Enigo::new();
+    enigo.key_sequence(decrypted.as_str());
     String::new()
 }
