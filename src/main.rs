@@ -3,9 +3,6 @@ use crate::manage_clipboard::start_daemon;
 mod manage_clipboard;
 mod clipperd;
 
-extern crate daemonize;
-use std::fs::File;
-use daemonize::Daemonize;
 use crate::clipperd::clipperd;
 
 fn main() {
