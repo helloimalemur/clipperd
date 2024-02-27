@@ -194,7 +194,7 @@ fn access_clip_board(selection: i32, save: bool, is_linux:bool) {
         let encrypted = mc.encrypt_str_to_base64(content);
         // // print encrypted and write to file
 
-
+        let _ = fs::create_dir_all("/home/foxx/.clipperd/").unwrap();
 
         let mut openfile = OpenOptions::new()
             .write(true)
