@@ -1,9 +1,12 @@
 use std::fs;
 use crate::manage_clipboard::start_daemon;
 mod manage_clipboard;
+mod clipperd;
+
 extern crate daemonize;
 use std::fs::File;
 use daemonize::Daemonize;
+use crate::clipperd::clipperd;
 
 fn main() {
     // let _ = fs::create_dir_all("/home/foxx/").unwrap();
@@ -27,5 +30,6 @@ fn main() {
     //     Err(e) => eprintln!("Error, {}", e),
     // }
 
-    start_daemon();
+    // start_daemon();
+    clipperd();
 }
