@@ -13,6 +13,12 @@
     3. [control] + [F1-F5], will write value from encrypted file to keyboard output
 
 
+## Development and Collaboration
+#### Feel free to open a pull request, please run the following prior to your submission please!
+    echo "Run clippy"; cargo clippy -- -D clippy::all
+    echo "Format source code"; cargo fmt -- --check
+
+
 # Resources
 https://github.com/Enigo-rs/Enigo
 https://github.com/Narsil/rdev
