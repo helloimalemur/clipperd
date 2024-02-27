@@ -1,7 +1,6 @@
-use std::{fs, thread};
+use std::{thread};
 use std::collections::HashMap;
-use std::fs::OpenOptions;
-use std::path::Path;
+
 use std::sync::{Arc, Mutex};
 use std::thread::JoinHandle;
 use std::time::Duration;
@@ -9,8 +8,6 @@ use thread::spawn;
 use enigo::{Enigo, KeyboardControllable};
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
-use wl_clipboard_rs::paste::{get_contents, ClipboardType, MimeType, Seat};
-use wl_clipboard_rs::utils::is_primary_selection_supported;
 use x11_clipboard::Clipboard;
 
 pub fn clipperd() {
