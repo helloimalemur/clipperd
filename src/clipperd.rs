@@ -16,10 +16,10 @@ pub fn clipperd() {
 
     let cb1 = clipboard.clone();
     handles.push(spawn(move || {
-        println!("{}", "Thread 1, write, started");
+        println!("{}", "Thread 1, write-out, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
         keybind.on_trigger(move || {
-            println!("{}", "Thread 1, write, triggered");
+            println!("{}", "Thread 1, write-out, triggered");
 
             push_to_clipboard(1, "true", cb1.clone());
         });
@@ -40,10 +40,10 @@ pub fn clipperd() {
 
     let cb3 = clipboard.clone();
     handles.push(spawn(move || {
-        println!("{}", "Thread 2, write, started");
+        println!("{}", "Thread 2, write-out, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F2]);
         keybind.on_trigger(move || {
-            println!("{}", "Thread 2, write, triggered");
+            println!("{}", "Thread 2, write-out, triggered");
 
             push_to_clipboard(2, "true", cb3.clone());
         });
@@ -64,10 +64,10 @@ pub fn clipperd() {
 
     let cb5 = clipboard.clone();
     handles.push(spawn(move || {
-        println!("{}", "Thread 3, write, started");
+        println!("{}", "Thread 3, write-out, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
         keybind.on_trigger(move || {
-            println!("{}", "Thread 3, write, triggered");
+            println!("{}", "Thread 3, write-out, triggered");
 
             push_to_clipboard(3, "true", cb5.clone());
         });
@@ -89,10 +89,10 @@ pub fn clipperd() {
 
     let cb7 = clipboard.clone();
     handles.push(spawn(move || {
-        println!("{}", "Thread 4, write, started");
+        println!("{}", "Thread 4, write-out, started");
         let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
         keybind.on_trigger(move || {
-            println!("{}", "Thread 4, write, triggered");
+            println!("{}", "Thread 4, write-out, triggered");
 
             push_to_clipboard(4, "true", cb7.clone());
         });
