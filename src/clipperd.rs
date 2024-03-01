@@ -62,6 +62,55 @@ pub fn clipperd() {
         keybind.wait();
     }));
 
+    let cb5 = clipboard.clone();
+    handles.push(spawn(move || {
+        println!("{}", "Thread 3, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F3]);
+        keybind.on_trigger(move || {
+            println!("{}", "Thread 3, write, triggered");
+
+            push_to_clipboard(3, "true", cb5.clone());
+        });
+        keybind.wait();
+    }));
+
+    let cb6 = clipboard.clone();
+    handles.push(spawn(move || {
+        println!("{}", "Thread 3, Read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::LAlt, Keycode::F3]);
+        keybind.on_trigger(move || {
+            println!("{}", "Thread 3, Read, triggered");
+
+            get_from_clipboard(3, cb6.clone());
+        });
+        keybind.wait();
+    }));
+
+
+    let cb7 = clipboard.clone();
+    handles.push(spawn(move || {
+        println!("{}", "Thread 4, write, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F4]);
+        keybind.on_trigger(move || {
+            println!("{}", "Thread 4, write, triggered");
+
+            push_to_clipboard(4, "true", cb5.clone());
+        });
+        keybind.wait();
+    }));
+
+    let cb8 = clipboard.clone();
+    handles.push(spawn(move || {
+        println!("{}", "Thread 4, Read, started");
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::LAlt, Keycode::F4]);
+        keybind.on_trigger(move || {
+            println!("{}", "Thread 4, Read, triggered");
+
+            get_from_clipboard(4, cb6.clone());
+        });
+        keybind.wait();
+    }));
+
     for e in handles {
         e.join().unwrap()
     }
