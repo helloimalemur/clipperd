@@ -94,7 +94,7 @@ pub fn clipperd() {
         keybind.on_trigger(move || {
             println!("{}", "Thread 4, write, triggered");
 
-            push_to_clipboard(4, "true", cb5.clone());
+            push_to_clipboard(4, "true", cb7.clone());
         });
         keybind.wait();
     }));
@@ -106,7 +106,7 @@ pub fn clipperd() {
         keybind.on_trigger(move || {
             println!("{}", "Thread 4, Read, triggered");
 
-            get_from_clipboard(4, cb6.clone());
+            get_from_clipboard(4, cb8.clone());
         });
         keybind.wait();
     }));
@@ -153,14 +153,24 @@ fn push_to_clipboard(index: u16, string: &str, cb: Arc<Mutex<HashMap<u16, String
 fn get_from_clipboard(index: u16, arc: Arc<Mutex<HashMap<u16, String>>>) -> String {
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let cb = arc.lock().unwrap();
-    let encrypted = cb.get(&index).unwrap();
-    let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
-    let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
-    let mut enigo = Enigo::new();
-    thread::sleep(Duration::new(0, 500000000));
-    decrypted.split('\n').for_each(|dec| {
-        enigo.key_sequence(dec);
-        enigo.key_click(Key::Return);
-    });
+    let mut decrypted = String::new();
+    let encrypted = match cb.get(&index) {
+        Some(x) => x,
+        None => "",
+    };
+    if !encrypted.is_empty() {
+        let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
+        decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
+        let mut enigo = Enigo::new();
+        thread::sleep(Duration::new(0, 500000000));
+        let mut first: bool = true;
+        decrypted.split('\n').for_each(|dec| {
+            if !first {
+                enigo.key_click(Key::Return);
+            }
+            first = false;
+            enigo.key_sequence(dec);
+        });
+    }
     decrypted
 }
