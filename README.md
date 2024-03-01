@@ -1,16 +1,13 @@
-# clipperd
+# Clipperd
 
-- write modifier - acts like programmable "G" keys
-- clipboards saved encrypted
-- will not output when screen is locked
+- Acts like programmable "G" keys
+- Clipboards are encrypted in memory
+- Will not output when screen is locked
 
---Currently writes encrypted clipboard files to '/var/lib/clippard/.board{}'--
-
---/var/lib/clippard/ must be created and permissions set for user clippard will be run as--
 #
     1. [Control] + [C], copy to normal clipboard
-    2. [shift] + [F1-F5], will copy value from clipboard to encrypted file (/tmp/board[1-5])
-    3. [control] + [F1-F5], will write value from encrypted file to keyboard output
+    2. [L-Control] +[L-Shift] + [F1-F4], will copy value from clipboard to (encrypted) memory
+    3. [L-Control] +[L-Shift] + [L-Alt] + [F1-F5], will write value from (encrypted) memory to keyboard output
 
 
 ## Development and Collaboration
