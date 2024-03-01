@@ -5,22 +5,19 @@ use std::sync::{Arc, Mutex};
 use std::thread::JoinHandle;
 use std::time::Duration;
 use thread::spawn;
-use enigo::{Enigo, KeyboardControllable};
+use enigo::{Enigo, Key, KeyboardControllable};
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use x11_clipboard::Clipboard;
 
 pub fn clipperd() {
     let mut clipboard: Arc<Mutex<HashMap<u16, String>>> = Arc::new(Mutex::new(HashMap::new()));
-
-
     let mut handles: Vec<JoinHandle<()>> = vec![];
-
 
     let cb1 = clipboard.clone();
     handles.push(spawn(move || {
         println!("{}", "Thread 1, write, started");
-        let mut keybind = Keybind::new(&[Keycode::LShift, Keycode::F1]);
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::F1]);
         keybind.on_trigger(move || {
             println!("{}", "Thread 1, write, triggered");
 
@@ -32,7 +29,7 @@ pub fn clipperd() {
     let cb2 = clipboard.clone();
     handles.push(spawn(move || {
         println!("{}", "Thread 1, Read, started");
-        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::F1]);
+        let mut keybind = Keybind::new(&[Keycode::LControl, Keycode::LShift, Keycode::LAlt, Keycode::F1]);
         keybind.on_trigger(move || {
             println!("{}", "Thread 1, Read, triggered");
 
@@ -86,7 +83,15 @@ fn get_from_clipboard(index: i32, arc: Arc<Mutex<HashMap<u16, String>>>) -> Stri
     let encrypted = cb.get(&1u16).unwrap();
     let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
     let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
+    println!("dec: {}", decrypted);
     let mut enigo = Enigo::new();
-    enigo.key_sequence(decrypted.as_str());
-    String::new()
+    thread::sleep(Duration::new(0, 500000000));
+
+    decrypted.split('\n').for_each(|dec| {
+        enigo.key_sequence(dec);
+        enigo.key_click(Key::Return);
+    });
+
+
+    decrypted
 }
