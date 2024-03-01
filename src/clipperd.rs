@@ -133,19 +133,13 @@ fn push_to_clipboard(index: u16, string: &str, cb: Arc<Mutex<HashMap<u16, String
         .trim_matches('\u{0}')
         .trim()
         .to_string();
-    println!("selection: {:#?}", content);
-    // let content = Clipboard::new().unwrap().get_text().expect("Could not retrieve clipboard");
+    // println!("selection: {:#?}", content);
 
     // encryption key
     let mc = magic_crypt::new_magic_crypt!("scrumdiddlyumptious", 256);
     let mut dest: String = String::new();
     // selection indicates which board
     let encrypted = mc.encrypt_str_to_base64(content);
-    // let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
-    // let decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
-    // let mut enigo = Enigo::new();
-    // enigo.key_sequence(decrypted.as_str());
-
     let _ = clipboard_map.insert(index, encrypted);
     println!("{:#?}", clipboard_map);
 }
