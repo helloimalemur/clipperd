@@ -21,7 +21,7 @@ jobs:
       uses: manoadamro/rust-release@v1
       with:
         owner: helloimalemur
-        repo: clippard
+        repo: clipperd
         token: ${{ secrets.GH_TOKEN }}
         cargo: Cargo.toml
         dry_run: false
