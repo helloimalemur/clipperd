@@ -71,6 +71,9 @@ jobs:
       - name: Clone
         run: ls
 
+      - name: XDO install
+        run: apt install xdo -y
+
       - name: Rust Installer
         run: cargo install cargo-bundle
 
