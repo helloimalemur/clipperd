@@ -1,9 +1,13 @@
 [package]
-name = "clippard"
+name = "clipperd"
 version = "0.1.1"
 edition = "2021"
 authors = ["James Koonts <james@koonts.net>"]
-description = "clippard"
+description = "clipperd"
+license = "MIT"
+repository = "https://github.com/helloimalemur/clipperd"
+keywords = ["clipperd", "clipboard"]
+readme = "README.md"
 
 [dependencies]
 
