@@ -1,0 +1,257 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  releases:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Clone
+      run: ls -althrs
+
+    - name: Rust Release
+      # You may pin to the exact commit or the version.
+      # uses: manoadamro/rust-release@028b5d008bac5437257ec3ec905b12aed11e766a
+      uses: manoadamro/rust-release@v1
+      with:
+        owner: helloimalemur
+        repo: clippard
+        token: ${{ secrets.GH_TOKEN }}
+        cargo: Cargo.toml
+        dry_run: false
+
+  windows-installer:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Clone
+        run: dir
+
+      - name: Rust Installer
+        run: cargo install cargo-wix
+
+      - name: Rust Installer
+        run: cargo wix
+
+      - name: Rust Installer
+        run: dir
+
+      - name: list artifacts
+        run: dir target\wix
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          file: target/wix/*.msi
+          tag: windows
+#          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+
+
+  macos-installer:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Clone
+        run: ls
+
+      - name: Rust Installer
+        run: cargo install cargo-bundle
+
+      - name: Rust Installer
+        run: cargo bundle --release --target x86_64-apple-darwin
+
+      - name: Rust Installer
+        run: tar cvzf clippard.tar.gz target/x86_64-apple-darwin/release/bundle/osx/*.app
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          file: clippard.tar.gz
+#          file: /Users/runner/work/clippard/clippard/target/x86_64-apple-darwin/release/bundle/osx/Word_Count.app
+          tag: macos
+#          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+
+  linux-installer:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Clone
+        run: ls
+
+      - name: Rust Installer
+        run: cargo install cargo-bundle
+
+      - name: Rust Installer
+        run: cargo bundle --release --target x86_64-unknown-linux-gnu
+
+      - name: Rust Installer
+        run: tar cvzf clippard.tar.gz target/x86_64-unknown-linux-gnu/release/bundle/deb/*.deb
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          file: clippard.tar.gz
+          #          file: /Users/runner/work/clippard/clippard/target/x86_64-apple-darwin/release/bundle/osx/Word_Count.app
+          tag: linux
+          #          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Clone
+        run: ls -althrs
+
+#    - name: Backup configs
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /usr/share/myq/host.json ]]; then cp /usr/share/myq/host.json /root/host.json; fi
+#
+#    - name: Backup configs
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /usr/share/myq/myq.yml ]]; then cp /usr/share/myq/myq.yml /root/myq.yml; fi
+
+#
+#    - name: Remove old build
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: rm -rf /usr/share/myq/target/debug/
+##
+
+
+#    - name: create folder
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -d /usr/share/koontsauth-sqlx/ ]]; then echo "exists"; else mkdir /usr/share/koontsauth-sqlx/; fi
+#
+#    - name: Copy repo contents
+#      uses: nogsantos/scp-deploy@master
+#      with:
+#        src: ./*
+#        host: 96.30.198.61
+#        remote: /usr/share/koontsauth-sqlx/
+#        port: 22
+#        user: root
+#        key: ${{ secrets.CRESS_KEY }}
+##
+#    - name: cargo build
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: cd /usr/share/koontsauth-sqlx/ && /root/.cargo/bin/cargo build --release -j 1
+#
+#    - name: stop or create service
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /etc/systemd/system/koontsauth.service ]]; then systemctl stop koontsauth; else echo "na"; fi
+#
+#    - name: stop or create service
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: cp /usr/share/koontsauth-sqlx/koontsauth.service /etc/systemd/system/koontsauth.service && systemctl daemon-reload && systemctl enable koontsauth;
+#
+#
+#    - name: config
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /usr/share/koontsauth-sqlx/config/Settings.toml ]]; then cp /usr/share/koontsauth-sqlx/config/Settings.toml /root/koontsauth-sqlx_Settings.toml; else cp /usr/share/koontsauth-sqlx/config/Settings_template.toml /usr/share/koontsauth-sqlx/config/Settings.toml; fi
+
+
+#    - name: copy executable
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: cp /usr/share/koontsauth-sqlx/target/release/koontsauth-sqlx /usr/share/koontsauth-sqlx/koontsauth-sqlx
+#
+#    - name: cargo build
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: cd /usr/share/koontsauth-sqlx/ && /root/.cargo/bin/cargo clean
+
+#    - name: copy assets
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: cp /usr/share/koontsauth-sqlx/koontsauth-sqlx.service /usr/lib/systemd/system/koontsauth-sqlx.service
+
+#    - name: copy assets
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: systemctl daemon-reload
+
+
+#    - name: Restore configs
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /root/host.json ]]; then cp /root/host.json /usr/share/myq/host.json; fi
+#
+
+#    - name: config
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: if [[ -f /root/koontsauth-sqlx_Settings.toml ]]; then cp /root/koontsauth-sqlx_Settings.toml /usr/share/koontsauth-sqlx/config/Settings.toml; else echo "na"; fi
+#
+#    - name: Execute SSH commmands on remote server
+#      uses: JimCronqvist/action-ssh@master
+#      with:
+#        hosts: 'root@96.30.198.61:22'
+#        privateKey: ${{ secrets.CRESS_KEY }}
+#        command: systemctl restart koontsauth
+#        command: cd /usr/share/myq/ && /bin/bash -e start_docker.sh
