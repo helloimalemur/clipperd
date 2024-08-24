@@ -3,7 +3,6 @@
 - Acts like programmable "G" keys
 - Clipboards are encrypted in memory
 - Will not output when screen is locked
-
 #
     1. [Control] + [C], copy to normal clipboard
     2. [L-Control] +[L-Shift] + [F1-F4], will copy value from clipboard to (encrypted) memory
