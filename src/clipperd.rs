@@ -5,14 +5,12 @@ use magic_crypt::MagicCryptTrait;
 use rand::Rng;
 use std::sync::{Arc, Mutex};
 use std::thread::JoinHandle;
-use std::time::Duration;
 use thread::spawn;
 use clipboard::{ClipboardContext, ClipboardProvider};
-use x11_clipboard::Clipboard;
 
 pub fn clipperd() {
     let mut rand = rand::thread_rng();
-    let random = rand.gen::<i128>();
+    let random = rand.random::<i128>();
     let encryption_key: Arc<Mutex<String>> = Arc::new(Mutex::new(random.to_string()));
     let clipboard: Arc<Mutex<HashMap<u16, String>>> = Arc::new(Mutex::new(HashMap::new()));
     let mut handles: Vec<JoinHandle<()>> = vec![];
@@ -162,10 +160,7 @@ fn push_to_clipboard(
         Ok(x) => x,
         Err(_) => panic!("could not get lock on encryption key"),
     };
-    let clipboard = match Clipboard::new() {
-        Ok(x) => x,
-        Err(_) => panic!("could not produce instance of clipboard object"),
-    };
+
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
     let primary = ctx.get_contents().unwrap().as_bytes().to_vec();
     let content = String::from_utf8_lossy(&primary)
