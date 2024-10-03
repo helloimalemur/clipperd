@@ -15,6 +15,7 @@ magic-crypt = "3.1.12"
 keybind = "0.1.0"
 x11-clipboard = "0.9.2"
 rand = "0.8.5"
+clipboard = "0.5.0"
 
 [package.metadata.bundle]
 name = "Clipperd"

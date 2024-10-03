@@ -7,6 +7,7 @@ use std::sync::{Arc, Mutex};
 use std::thread::JoinHandle;
 use std::time::Duration;
 use thread::spawn;
+use clipboard::{ClipboardContext, ClipboardProvider};
 use x11_clipboard::Clipboard;
 
 pub fn clipperd() {
@@ -165,15 +166,8 @@ fn push_to_clipboard(
         Ok(x) => x,
         Err(_) => panic!("could not produce instance of clipboard object"),
     };
-    let primary = clipboard
-        .load(
-            clipboard.getter.atoms.clipboard,
-            // clipboard.getter.atoms.primary,
-            clipboard.getter.atoms.utf8_string,
-            clipboard.getter.atoms.property,
-            Duration::from_millis(100),
-        )
-        .unwrap_or_else(|_| "".as_bytes().to_vec());
+    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+    let primary = ctx.get_contents().unwrap().as_bytes().to_vec();
     let content = String::from_utf8_lossy(&primary)
         .trim_matches('\u{0}')
         .trim()
@@ -211,14 +205,8 @@ fn get_from_clipboard(
         let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
         decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
 
-        let clipboard = Clipboard::new().unwrap();
-
-        println!("{}", decrypted);
-        clipboard.store(
-            clipboard.setter.atoms.clipboard,
-            clipboard.setter.atoms.utf8_string,
-            decrypted.as_bytes().to_vec(),
-        ).expect("Could not store value");
+        let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+        ctx.set_contents(String::from(&decrypted)).unwrap();
     }
     decrypted
 }
