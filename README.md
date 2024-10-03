@@ -6,7 +6,7 @@
 #
     1. [Control] + [C], copy to normal clipboard
     2. [L-Control] +[L-Shift] + [F1-F4], will copy value from clipboard to (encrypted) memory
-    3. [L-Control] +[L-Shift] + [L-Alt] + [F1-F5], will write value from (encrypted) memory to keyboard output
+    3. [L-Control] +[L-Shift] + [L-Alt] + [F1-F5], will write value from (encrypted) memory to clipboard
 
 
 ## Development and Collaboration

@@ -1,7 +1,5 @@
 use std::collections::HashMap;
 use std::thread;
-
-use enigo::{Enigo, Key, KeyboardControllable};
 use keybind::{Keybind, Keycode};
 use magic_crypt::MagicCryptTrait;
 use rand::Rng;
@@ -169,7 +167,8 @@ fn push_to_clipboard(
     };
     let primary = clipboard
         .load(
-            clipboard.getter.atoms.primary,
+            clipboard.getter.atoms.clipboard,
+            // clipboard.getter.atoms.primary,
             clipboard.getter.atoms.utf8_string,
             clipboard.getter.atoms.property,
             Duration::from_millis(100),
@@ -211,16 +210,15 @@ fn get_from_clipboard(
     if !encrypted.is_empty() {
         let df: &str = std::str::from_utf8(encrypted.as_bytes()).unwrap_or_default();
         decrypted = mc.decrypt_base64_to_string(df).unwrap_or_default();
-        let mut enigo = Enigo::new();
-        thread::sleep(Duration::new(0, 500000000));
-        let mut first: bool = true;
-        decrypted.split('\n').for_each(|dec| {
-            if !first {
-                enigo.key_click(Key::Return);
-            }
-            first = false;
-            enigo.key_sequence(dec);
-        });
+
+        let clipboard = Clipboard::new().unwrap();
+
+        println!("{}", decrypted);
+        clipboard.store(
+            clipboard.setter.atoms.clipboard,
+            clipboard.setter.atoms.utf8_string,
+            decrypted.as_bytes().to_vec(),
+        ).expect("Could not store value");
     }
     decrypted
 }
