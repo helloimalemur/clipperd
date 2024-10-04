@@ -1,17 +1,20 @@
 # Clipperd
 
-- Acts like programmable "G" keys
-- Clipboards are encrypted in memory
+- Secondary clipboard
+- Clipboards are encrypted in memory, clipperd randomly generates encryption key on launch.
 - Will not output when screen is locked
-## How to use
-    1. [Control] + [C], copy to normal clipboard
-    2. [L-Control] +[L-Shift] + [F1-F4], will copy value from clipboard to (encrypted) memory
-    3. [L-Control] +[L-Shift] + [L-Alt] + [F1-F5], will write value from (encrypted) memory to clipboard
+- AES256 encryption
 
-## Install Rust
+## Usage Flow
+    copy value to OS clipboard normally: [L-Control] + [c] 
+    copy value from OS clipboard to (encrypted) memory: [L-Control] + [L-Shift] + [F1-F4]
+    retreive value from (encrypted) memory to OS clipboard: [L-Control] + [L-Shift] + [L-Alt] + [F1-F5]
+    paste value from OS clipboard normally: [L-Control] + [v]
+
+## Install [Rust](https://www.rust-lang.org/tools/install)
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-## Installation
+## Installation [requires Rust](https://www.rust-lang.org/tools/install)
     cargo install clipperd
 
 ## Development and Collaboration
