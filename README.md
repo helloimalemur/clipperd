@@ -4,6 +4,7 @@
 - Clipboards are encrypted in memory, clipperd randomly generates encryption key on launch.
 - Will not output when screen is locked
 - AES256 encryption
+- Retains formatting
 
 ## Usage Flow
     copy value to OS clipboard normally: [L-Control] + [c] 
