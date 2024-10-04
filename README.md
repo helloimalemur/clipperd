@@ -8,6 +8,9 @@
     2. [L-Control] +[L-Shift] + [F1-F4], will copy value from clipboard to (encrypted) memory
     3. [L-Control] +[L-Shift] + [L-Alt] + [F1-F5], will write value from (encrypted) memory to clipboard
 
+## Install Rust
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 ## Installation
     cargo install clipperd
 
