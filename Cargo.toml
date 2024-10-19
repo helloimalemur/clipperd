@@ -1,9 +1,9 @@
 [package]
 name = "clipperd"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 authors = ["James Koonts <james@koonts.net>"]
-description = "clipperd"
+description = "Keyboard shortcuts to paste selected text to secondary clipboard"
 license = "MIT"
 repository = "https://github.com/helloimalemur/clipperd"
 keywords = ["clipperd", "clipboard"]
